@@ -1,3 +1,7 @@
+<?php
+include_once("database.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <script>
     let lastScrollTop = 0;
@@ -180,6 +185,77 @@
                 
         </div>
     </section>
+
+
+<!-- Grafik Laporan -->
+<div class="flex justify-center items-center mt-10">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm text-center">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">GRAFIK LAPORAN</h2>
+        <div class="w-64 h-64 mx-auto">
+            <canvas id="grafik"></canvas>
+        </div>
+    </div>
+</div>
+
+<?php
+
+// Hitung jumlah laporan per kategori
+$bencana = mysqli_query($conn, "SELECT * FROM laporan WHERE kategori='Bencana Alam'");
+$jumlah_bencana = mysqli_num_rows($bencana);
+
+$sosial = mysqli_query($conn, "SELECT * FROM laporan WHERE kategori='Sosial'");
+$jumlah_sosial = mysqli_num_rows($sosial);
+?>
+
+<script>
+    var ctx = document.getElementById("grafik").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Bencana Alam", "Sosial"],
+            datasets: [{
+                label: 'Jumlah Laporan',
+                data: [<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_sosial; ?>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: Math.max(<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_sosial; ?>) + 5
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: '#333',
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+
+
+
     
 
   <!-- Footer -->

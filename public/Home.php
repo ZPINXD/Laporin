@@ -224,47 +224,54 @@
         </div>
         
 
-
     <div id="formaduan" class="max-w-4xl mx-auto p-8">
         <div  class="bg-white p-6 rounded-lg shadow-lg ">
           <!-- Title -->
           <h2  class="text-2xl text-black font-semibold text-center mb-6">Sampaikan Laporan Anda</h2>
           <!-- Form Content -->
-          <form id="laporanForm" action="proses_laporan.php" method="post">
-            <!-- Judul Laporan -->
-            <div class="mb-4">
-                <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
-                <input type="text" id="judul" name="judul" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan judul laporan" required>
-            </div>
 
-            <!-- Isi Laporan -->
-            <div class="mb-4">
-                <label for="isi" class="block text-sm font-semibold text-gray-700">Ketikan Isi Laporan Anda</label>
-                <textarea id="isi" name="isi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" rows="4" placeholder="Masukkan isi laporan" required></textarea>
-            </div>
-
-            <!-- Tanggal Kejadian -->
-            <div class="mb-4">
-                <label for="tanggal" class="block text-sm font-semibold text-gray-700">Pilih Tanggal Kejadian</label>
-                <input type="date" id="tanggal" name="tanggal" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
-            </div>
-
-            <!-- Lokasi Kejadian -->
-            <div class="mb-4">
-                <label for="lokasi" class="block text-sm font-semibold text-gray-700">Ketikan Lokasi Kejadian</label>
-                <input type="text" id="lokasi" name="lokasi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan lokasi kejadian" required>
-            </div>
-
-            <!-- Instansi Tujuan -->
-            <div class="mb-4">
-                <label for="instansi" class="block text-sm font-semibold text-gray-700">Ketikan Instansi Tujuan</label>
-                <input type="text" id="instansi" name="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan instansi tujuan" required>
-            </div>
-
-            <!-- Kategori Laporan -->
-            <div class="mb-4">
-                <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
-                <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+            <div id="formContent">
+                <form id="laporanForm" action="proses_laporan.php" method="POST">
+                <!-- Judul Laporan -->
+                <div class="mb-4">
+                    <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
+                    <input type="text" id="judul" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan judul laporan">
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-judul">Judul harus diisi!</p>
+                </div>
+            
+                <!-- Isi Laporan -->
+                <div class="mb-4">
+                    <label for="isi" class="block text-sm font-semibold text-gray-700">Ketikan Isi Laporan Anda</label>
+                    <textarea id="isi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" rows="4" placeholder="Masukkan isi laporan"></textarea>
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-isi">Isi laporan harus diisi!</p>
+                </div>
+            
+                <!-- Tanggal Kejadian -->
+                <div class="mb-4">
+                    <label for="tanggal" class="block text-sm font-semibold text-gray-700">Pilih Tanggal Kejadian</label>
+                    <input type="date" id="tanggal" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-tanggal">Tanggal harus dipilih!</p>
+                </div>
+            
+                <!-- Lokasi Kejadian -->
+                <div class="mb-4">
+                    <label for="lokasi" class="block text-sm font-semibold text-gray-700">Ketikan Lokasi Kejadian</label>
+                    <input type="text" id="lokasi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan lokasi kejadian">
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-lokasi">Lokasi kejadian harus diisi!</p>
+                </div>
+            
+                <!-- Instansi Tujuan -->
+                <div class="mb-4">
+                    <label for="instansi" class="block text-sm font-semibold text-gray-700">Ketikan Instansi Tujuan</label>
+                    <input type="text" id="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan instansi tujuan">
+                    <p class="text-red  -500 text-sm mt-1 hidden" id="error-instansi">Instansi tujuan harus diisi!</p>
+                </div>
+            
+                <!-- Kategori Laporan -->
+                <div class="mb-4">
+                    <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
+                    <select id="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"   >
+>>>>>>> 4a9fd099a9a16e0c9b1b2abaaa6bcc51b342a583
                     <option value="" disabled selected>Pilih kategori</option>
                     <option value="bencana">Bencana Alam</option>
                     <option value="demo">Demo</option>
@@ -274,19 +281,23 @@
 
             <!-- Pilihan Anonim atau Rahasia -->
             <div class="mb-4 flex items-center">
-                <input type="radio" id="anonim" name="privasi" value="anonim" class="mr-2" required>
-                <label for="anonim" class="text-sm">Anonim</label>
-                <input type="radio" id="rahasia" name="privasi" value="rahasia" class="ml-4 mr-2">
-                <label for="rahasia" class="text-sm">Rahasia</label>
-            </div>
+                    <input type="radio" id="anonim" name="privacy" class="mr-2">
+                    <label for="publik" class="text-sm">Publik</label>
+                    <input type="radio" id="rahasia" name="privacy" class="ml-4 mr-2">
+                    <label for="anonymous" class="text-sm">Anonymous</label>
+                    <p class="text-red-500 text-sm mt-1 hidden" id="error-privacy">Pilih salah satu privasi!</p>
+                </div>
+            
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-full text-l w-full focus:outline-none  hover:bg-orange-700">Lapor!</button>
+                </div>
+            </form>
+        </div>  
 
-            <!-- Submit Button -->
-            <div class="text-center">
-                <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-full text-l w-full focus:outline-none hover:bg-orange-700">Lapor!</button>
-            </div>
-        </form>
         
             
+
  
         </div>
         <script>
@@ -325,8 +336,11 @@
 });
 
         </script>
+=======
+                
     </div>
     
+
 
                 <script src="Js/formValidation.js"></script>
                 <script src="Js/script.js"></script>
