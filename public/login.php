@@ -19,7 +19,7 @@ session_start();
 
     if (currentScroll > lastScrollTop) {
         // Jika discroll ke bawah, tambahkan efek blur dan transparansi
-        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30", "shadow-lg");
+        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30" "shadow-lg");
         navbar.classList.remove("bg-gray-900");
     } else if (currentScroll === 0) {
         // Jika kembali ke atas, tetap putih
@@ -45,8 +45,13 @@ session_start();
             <li><a href="Home.php" class="text-white font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="text-white font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="text-white font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a></li>
+            
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+            <a href="proseslogout.php" class="text-white font-semibold hover:text-orange-400">LOGOUT</a>
+            <?php else: ?>
+            <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
+            <a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a>
+            <?php endif; ?>
 
         </ul>
     
@@ -62,8 +67,12 @@ session_start();
             <li><a href="Home.php" class="block text-gray-600 font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="block text-gray-600 font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="block text-gray-600 font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+        <li><a href="logout.php" class="block text-gray-600 font-semibold hover:text-orange-400">LOGOUT</a></li>
+    <?php else: ?>
+        <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
+        <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+    <?php endif; ?>
         </ul>
     </div>
     

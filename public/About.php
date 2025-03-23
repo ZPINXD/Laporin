@@ -1,5 +1,6 @@
 <?php
 include_once("database.php");
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -45,8 +46,13 @@ include_once("database.php");
             <li><a href="Home.php" class="text-white font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="text-white font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="text-white font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a></li>
+            
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+            <a href="proseslogout.php" class="text-white font-semibold hover:text-orange-400">LOGOUT</a>
+            <?php else: ?>
+            <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
+            <a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a>
+            <?php endif; ?>
 
         </ul>
     
@@ -62,8 +68,12 @@ include_once("database.php");
             <li><a href="Home.php" class="block text-gray-600 font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="block text-gray-600 font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="block text-gray-600 font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+        <li><a href="logout.php" class="block text-gray-600 font-semibold hover:text-orange-400">LOGOUT</a></li>
+    <?php else: ?>
+        <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
+        <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+    <?php endif; ?>
         </ul>
     </div>
     
@@ -203,8 +213,8 @@ include_once("database.php");
 $bencana = mysqli_query($conn, "SELECT * FROM laporan WHERE kategori='Bencana Alam'");
 $jumlah_bencana = mysqli_num_rows($bencana);
 
-$sosial = mysqli_query($conn, "SELECT * FROM laporan WHERE kategori='Sosial'");
-$jumlah_sosial = mysqli_num_rows($sosial);
+$demo = mysqli_query($conn, "SELECT * FROM laporan WHERE kategori='demo'");
+$jumlah_demo = mysqli_num_rows($demo);
 ?>
 
 <script>
@@ -212,10 +222,10 @@ $jumlah_sosial = mysqli_num_rows($sosial);
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Bencana Alam", "Sosial"],
+            labels: ["Bencana Alam", "demo"],
             datasets: [{
                 label: 'Jumlah Laporan',
-                data: [<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_sosial; ?>],
+                data: [<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_demo; ?>],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -233,7 +243,7 @@ $jumlah_sosial = mysqli_num_rows($sosial);
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: Math.max(<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_sosial; ?>) + 5
+                    max: Math.max(<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_demo; ?>) + 5
                 }
             },
             plugins: {
@@ -291,7 +301,7 @@ $jumlah_sosial = mysqli_num_rows($sosial);
         </div>
     </footer>
 
-<script src="Js/script.js"></script>
+
 
 </body>
 </html>

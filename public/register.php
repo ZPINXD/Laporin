@@ -30,7 +30,7 @@
 });
 
 </script>
-<body>
+<body >
 	<nav id="navbar" class="fixed top-0 left-0 w-full bg-gray-900 shadow-md p-4 flex justify-between items-center z-50 transition-all duration-300">
         <div class="flex items-center space-x-2">
             <div class="bg-green-700 w-8 h-8 flex items-center justify-center rounded-full shadow">
@@ -44,8 +44,13 @@
             <li><a href="Home.php" class="text-white font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="text-white font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="text-white font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a></li>
+            
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+            <a href="proseslogout.php" class="text-white font-semibold hover:text-orange-400">LOGOUT</a>
+            <?php else: ?>
+            <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
+            <a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a>
+            <?php endif; ?>
 
         </ul>
     
@@ -61,8 +66,12 @@
             <li><a href="Home.php" class="block text-gray-600 font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="block text-gray-600 font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="block text-gray-600 font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+        <li><a href="logout.php" class="block text-gray-600 font-semibold hover:text-orange-400">LOGOUT</a></li>
+    <?php else: ?>
+        <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
+        <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+    <?php endif; ?>
         </ul>
     </div>
     

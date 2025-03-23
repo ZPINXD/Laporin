@@ -1,20 +1,55 @@
 <?php
-// Include the database configuration
-$host = 'localhost';
-$db = 'laporin_db';
-$user = 'root';
-$pass = '';
+session_start();
+include_once("database.php");
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+// Mengecek koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Fetching all reports from the database
-$stmt = $pdo->query("SELECT * FROM laporan"); // Adjust table name
-$reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Menampilkan semua laporan yang ada
+$sql = "SELECT laporan.*, user.username 
+        FROM laporan 
+        LEFT JOIN user ON laporan.id_user = user.id_user 
+        ORDER BY laporan.id_laporan DESC";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Menentukan nama yang ditampilkan berdasarkan privasi
+        $nama_pelapor = ($row['privasi'] == 'anonim') ? 'Anonim' : $row['username'];
+
+        // Menampilkan laporan dengan format yang diinginkan
+        echo '<div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">';
+        echo '<div class="flex items-center mb-4">';
+        echo '<div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>';
+        echo '<div>';
+        echo '<p class="text-gray-700"><strong>' . htmlspecialchars($nama_pelapor) . '</strong></p>';
+        echo '<p class="text-gray-500 text-sm">1 jam yang lalu</p>'; // Placeholder waktu
+        echo '</div>';
+        echo '</div>';
+        
+        echo '<div class="flex justify-between text-sm text-gray-500 mb-2">';
+        echo '<p>Website - ' . htmlspecialchars($row['instansi']) . '</p>';
+        echo '<p>Selesai otomatis dalam 10 hari</p>';
+        echo '</div>';
+        
+        echo '<div class="mb-4">';
+        echo '<p class="text-primary font-bold">Terdisposisi ' . htmlspecialchars($row['instansi']) . '</p>';
+        echo '</div>';
+        
+        echo '<h2 class="text-lg font-bold text-teal-600 mb-2">' . htmlspecialchars($row['judul']) . '</h2>';
+        echo '<p class="text-gray-600 mb-2">' . nl2br(htmlspecialchars($row['isi'])) . '</p>';
+        echo '<p class="text-gray-600 mb-4"><strong>Alamat:</strong> ' . htmlspecialchars($row['lokasi']) . '</p>';
+        echo '<a href="#" class="text-blue-500 hover:underline">Selengkapnya</a>';
+        echo '</div><hr>';
+    }
+} else {
+    echo "Tidak ada laporan.";
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +68,7 @@ $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (currentScroll > lastScrollTop) {
         // Jika discroll ke bawah, tambahkan efek blur dan transparansi
-        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30", "shadow-lg");
+        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30" "shadow-lg");
         navbar.classList.remove("bg-gray-900");
     } else if (currentScroll === 0) {
         // Jika kembali ke atas, tetap putih
@@ -59,8 +94,13 @@ $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="Home.php" class="text-white font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="text-white font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="text-white font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a></li>
+            
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+            <a href="proseslogout.php" class="text-white font-semibold hover:text-orange-400">LOGOUT</a>
+            <?php else: ?>
+            <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
+            <a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a>
+            <?php endif; ?>
 
         </ul>
     
@@ -76,8 +116,12 @@ $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="Home.php" class="block text-gray-600 font-semibold hover:text-orange-400">HOME</a></li>
             <li><a href="About.php" class="block text-gray-600 font-semibold hover:text-orange-400">ABOUT US</a></li>
             <li><a href="Lapor.php" class="block text-gray-600 font-semibold hover:text-orange-400">LAPOR</a></li>
-            <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
-            <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+        <li><a href="logout.php" class="block text-gray-600 font-semibold hover:text-orange-400">LOGOUT</a></li>
+    <?php else: ?>
+        <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
+        <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+    <?php endif; ?>
         </ul>
     </div>
     
@@ -93,76 +137,6 @@ $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!--Navbar END-->
 
     
-    <!-- Konten Laporan -->
-    <!-- <div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">
-        <div class="flex items-center mb-4">
-            <div class="w-10 h-10 bg-grays-300 rounded-full mr-3"></div>
-            <div>
-                <p class="text-gray-700"><strong>Anonim</strong></p>
-                <p class="text-gray-500 text-sm">1 jam yang lalu</p>
-            </div>
-        </div>
-        
-        <div class="flex justify-between text-sm text-gray-500 mb-2">
-            <p>Website - pemerintah-provisi-dki-jakarta</p>
-            <p>Selesai otomatis dalam 10 hari</p>
-        </div>
-        
-        <div class="mb-4">
-            <p class="text-primary font-bold">Terdisposisi ke Pemprov DKI 2</p>
-        </div>
-
-        <h2 class="text-lg font-bold text-teal-600 mb-2">Perbaikan Trotuar Smpn 205, Semanan</h2>
-
-        <p class="text-gray-600 mb-2">Trotuar seberang smpn 205 tolong diperbaiki berupa pemasangan kanstin dan perbaikan paving block.</p>
-        
-        <p class="text-gray-600 mb-4"><strong>Alamat:</strong> jl. semanan raya, semanan, kec. kalideres, jakarta barat, dki jakarta</p>
-        
-        <a href="#" class="text-blue-500 hover:underline">Selengkapnya</a> -->
-
-        <!-- Konten Laporan -->
-    <?php foreach ($reports as $report): ?>
-    <div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">
-        <div class="flex items-center mb-4">
-            <div class="w-10 h-10 bg-grays-300 rounded-full mr-3"></div>
-            <div>
-                <p class="text-gray-700"><strong><?php echo $report['author'] ?: 'Anonim'; ?></strong></p>
-                <p class="text-gray-500 text-sm"><?php echo $report['created_at']; ?></p>
-            </div>
-        </div>
-        
-        <div class="flex justify-between text-sm text-gray-500 mb-2">
-            <p><?php echo htmlspecialchars($report['website']); ?></p>
-            <p>Selesai otomatis dalam 10 hari</p>
-        </div>
-        
-        <div class="mb-4">
-            <p class="text-primary font-bold"><?php echo htmlspecialchars($report['disposition']); ?></p>
-        </div>
-
-        <h2 class="text-lg font-bold text-teal-600 mb-2"><?php echo htmlspecialchars($report['title']); ?></h2>
-        <p class="text-gray-600 mb-2"><?php echo nl2br(htmlspecialchars($report['description'])); ?></p>
-        <p class="text-gray-600 mb-4"><strong>Alamat:</strong> <?php echo htmlspecialchars($report['address']); ?></p>
-        
-        <a href="#" class="text-blue-500 hover:underline">Selengkapnya</a>
-    </div>
-    <?php endforeach; ?>
-
-        <div class="mt-4">
-            <p class="text-gray-600 font-medium">📍 TROTROAR</p>
-            <img src="/src/asset/trotoar.jpeg" alt="Trotuar" class="w-full h-auto rounded-lg mt-2">
-        </div>
-
-        <div class="mt-4 text-sm">
-            <p class="text-gray-700">#8734151</p>
-            <div class="flex space-x-4 mt-2">
-                <button class="text-blue-500 hover:underline">Tindak Lanjut 2</button>
-                <button class="text-gray-500 hover:underline">Komentar 0</button>
-                <button class="text-gray-500 hover:underline">Dukung</button>
-                <button class="text-gray-500 hover:underline">Bagikan</button>
-            </div>
-        </div>
-    </div>
 
 
     <footer class="bg-gray-900 text-white py-10 mt-10">
