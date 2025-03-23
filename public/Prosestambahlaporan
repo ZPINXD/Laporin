@@ -1,0 +1,20 @@
+<?php 
+include_once("koneksi.php");
+$judul = $_POST['isi'];
+$isi= $_POST['pengarang'];
+$tanggal= $_POST['tanggal'];
+$lokasi= $_POST['lokasi'];
+$instansi= $_POST['instansi'];
+$kategori= $_POST['kategori'];
+$anonim= $_POST['anonim'];
+$rahasia= $_POST['Rahasia'];
+$query="INSERT INTO laporin
+(judul,isi,tanggal,lokasi,instansi ,kategori, privasi) VALUE 
+('$judul','$isi','$tanggal','$lokasi','$instansi','$kategori','$anonim','$rahasia',)";
+$hasil=mysqli_query($conn,$query);
+if ($hasil) {
+header('location:Home.php');
+} else {
+echo "input data gagal";
+}
+?>

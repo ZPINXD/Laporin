@@ -222,14 +222,13 @@
         </div>
         
 
-
     <div id="formaduan" class="max-w-4xl mx-auto p-8">
         <div  class="bg-white p-6 rounded-lg shadow-lg ">
           <!-- Title -->
           <h2  class="text-2xl text-black font-semibold text-center mb-6">Sampaikan Laporan Anda</h2>
           <!-- Form Content -->
             <div id="formContent">
-                <form id="laporanForm">
+                <form id="laporanForm" action="prosestambahlaporan.php" method="POST">
                 <!-- Judul Laporan -->
                 <div class="mb-4">
                     <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
@@ -280,9 +279,9 @@
                 <!-- Pilihan Anonim atau Rahasia -->
                 <div class="mb-4 flex items-center">
                     <input type="radio" id="anonim" name="privacy" class="mr-2">
-                    <label for="anonim" class="text-sm">Anonim</label>
+                    <label for="publik" class="text-sm">Publik</label>
                     <input type="radio" id="rahasia" name="privacy" class="ml-4 mr-2">
-                    <label for="rahasia" class="text-sm">Rahasia</label>
+                    <label for="anonymous" class="text-sm">Anonymous</label>
                     <p class="text-red-500 text-sm mt-1 hidden" id="error-privacy">Pilih salah satu privasi!</p>
                 </div>
             
@@ -294,6 +293,7 @@
         </div>  
     </div>
 </div>
+
 
                 <script src="Js/formValidation.js"></script>
                 <script src="Js/script.js"></script>
