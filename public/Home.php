@@ -329,7 +329,7 @@
     .then(response => response.text())
     .then(data => {
         alert(data);
-        window.location.href = "Lapor.php";  // Redirect kalau sukses
+        window.location.href = "Lapor.php";  // Redirect kalau sukses ke sini
     })
     .catch(error => alert("Terjadi kesalahan: " + error));
 });
