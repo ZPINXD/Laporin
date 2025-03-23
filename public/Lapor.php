@@ -1,3 +1,22 @@
+<?php
+// Include the database configuration
+$host = 'localhost';
+$db = 'laporin_db';
+$user = 'root';
+$pass = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+
+// Fetching all reports from the database
+$stmt = $pdo->query("SELECT * FROM laporan"); // Adjust table name
+$reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,7 +33,7 @@
 
     if (currentScroll > lastScrollTop) {
         // Jika discroll ke bawah, tambahkan efek blur dan transparansi
-        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30" "shadow-lg");
+        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30", "shadow-lg");
         navbar.classList.remove("bg-gray-900");
     } else if (currentScroll === 0) {
         // Jika kembali ke atas, tetap putih
@@ -75,7 +94,7 @@
 
     
     <!-- Konten Laporan -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">
+    <!-- <div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">
         <div class="flex items-center mb-4">
             <div class="w-10 h-10 bg-grays-300 rounded-full mr-3"></div>
             <div>
@@ -99,7 +118,35 @@
         
         <p class="text-gray-600 mb-4"><strong>Alamat:</strong> jl. semanan raya, semanan, kec. kalideres, jakarta barat, dki jakarta</p>
         
+        <a href="#" class="text-blue-500 hover:underline">Selengkapnya</a> -->
+
+        <!-- Konten Laporan -->
+    <?php foreach ($reports as $report): ?>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">
+        <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-grays-300 rounded-full mr-3"></div>
+            <div>
+                <p class="text-gray-700"><strong><?php echo $report['author'] ?: 'Anonim'; ?></strong></p>
+                <p class="text-gray-500 text-sm"><?php echo $report['created_at']; ?></p>
+            </div>
+        </div>
+        
+        <div class="flex justify-between text-sm text-gray-500 mb-2">
+            <p><?php echo htmlspecialchars($report['website']); ?></p>
+            <p>Selesai otomatis dalam 10 hari</p>
+        </div>
+        
+        <div class="mb-4">
+            <p class="text-primary font-bold"><?php echo htmlspecialchars($report['disposition']); ?></p>
+        </div>
+
+        <h2 class="text-lg font-bold text-teal-600 mb-2"><?php echo htmlspecialchars($report['title']); ?></h2>
+        <p class="text-gray-600 mb-2"><?php echo nl2br(htmlspecialchars($report['description'])); ?></p>
+        <p class="text-gray-600 mb-4"><strong>Alamat:</strong> <?php echo htmlspecialchars($report['address']); ?></p>
+        
         <a href="#" class="text-blue-500 hover:underline">Selengkapnya</a>
+    </div>
+    <?php endforeach; ?>
 
         <div class="mt-4">
             <p class="text-gray-600 font-medium">📍 TROTROAR</p>

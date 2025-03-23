@@ -16,7 +16,7 @@
 
     if (currentScroll > lastScrollTop) {
         // Jika discroll ke bawah, tambahkan efek blur dan transparansi
-        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30" "shadow-lg");
+        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30", "shadow-lg");
         navbar.classList.remove("bg-gray-900");
     } else if (currentScroll === 0) {
         // Jika kembali ke atas, tetap putih

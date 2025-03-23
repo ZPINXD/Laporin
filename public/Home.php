@@ -1,7 +1,9 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">`
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home</title>
 	<link rel="stylesheet" href="css/style.css">
@@ -18,7 +20,7 @@
 
     if (currentScroll > lastScrollTop) {
         // Jika discroll ke bawah, tambahkan efek blur dan transparansi
-        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30" "shadow-lg");
+        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30", "shadow-lg");
         navbar.classList.remove("bg-gray-900");
     } else if (currentScroll === 0) {
         // Jika kembali ke atas, tetap putih
@@ -141,7 +143,7 @@
 
 
 
-<div class="max-w-4xl mx-auto relative overflow-x-auto">
+<div class="max-w-6xl  mx-auto relative overflow-x-auto">
     <div class="flex items-center gap-6 md:gap-8 relative z-10 w-full">
         <!-- Langkah 1 -->
         <div class="flex flex-col items-center text-center w-1/5 min-w-[200px]">
@@ -228,72 +230,103 @@
           <!-- Title -->
           <h2  class="text-2xl text-black font-semibold text-center mb-6">Sampaikan Laporan Anda</h2>
           <!-- Form Content -->
-            <div id="formContent">
-                <form id="laporanForm">
-                <!-- Judul Laporan -->
-                <div class="mb-4">
-                    <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
-                    <input type="text" id="judul" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan judul laporan">
-                    <p class="text-red-500 text-sm mt-1 hidden" id="error-judul">Judul harus diisi!</p>
-                </div>
-            
-                <!-- Isi Laporan -->
-                <div class="mb-4">
-                    <label for="isi" class="block text-sm font-semibold text-gray-700">Ketikan Isi Laporan Anda</label>
-                    <textarea id="isi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" rows="4" placeholder="Masukkan isi laporan"></textarea>
-                    <p class="text-red-500 text-sm mt-1 hidden" id="error-isi">Isi laporan harus diisi!</p>
-                </div>
-            
-                <!-- Tanggal Kejadian -->
-                <div class="mb-4">
-                    <label for="tanggal" class="block text-sm font-semibold text-gray-700">Pilih Tanggal Kejadian</label>
-                    <input type="date" id="tanggal" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
-                    <p class="text-red-500 text-sm mt-1 hidden" id="error-tanggal">Tanggal harus dipilih!</p>
-                </div>
-            
-                <!-- Lokasi Kejadian -->
-                <div class="mb-4">
-                    <label for="lokasi" class="block text-sm font-semibold text-gray-700">Ketikan Lokasi Kejadian</label>
-                    <input type="text" id="lokasi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan lokasi kejadian">
-                    <p class="text-red-500 text-sm mt-1 hidden" id="error-lokasi">Lokasi kejadian harus diisi!</p>
-                </div>
-            
-                <!-- Instansi Tujuan -->
-                <div class="mb-4">
-                    <label for="instansi" class="block text-sm font-semibold text-gray-700">Ketikan Instansi Tujuan</label>
-                    <input type="text" id="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan instansi tujuan">
-                    <p class="text-red  -500 text-sm mt-1 hidden" id="error-instansi">Instansi tujuan harus diisi!</p>
-                </div>
-            
-                <!-- Kategori Laporan -->
-                <div class="mb-4">
-                    <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
-                    <select id="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"   >
+          <form id="laporanForm" action="proses_laporan.php" method="post">
+            <!-- Judul Laporan -->
+            <div class="mb-4">
+                <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
+                <input type="text" id="judul" name="judul" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan judul laporan" required>
+            </div>
+
+            <!-- Isi Laporan -->
+            <div class="mb-4">
+                <label for="isi" class="block text-sm font-semibold text-gray-700">Ketikan Isi Laporan Anda</label>
+                <textarea id="isi" name="isi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" rows="4" placeholder="Masukkan isi laporan" required></textarea>
+            </div>
+
+            <!-- Tanggal Kejadian -->
+            <div class="mb-4">
+                <label for="tanggal" class="block text-sm font-semibold text-gray-700">Pilih Tanggal Kejadian</label>
+                <input type="date" id="tanggal" name="tanggal" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+            </div>
+
+            <!-- Lokasi Kejadian -->
+            <div class="mb-4">
+                <label for="lokasi" class="block text-sm font-semibold text-gray-700">Ketikan Lokasi Kejadian</label>
+                <input type="text" id="lokasi" name="lokasi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan lokasi kejadian" required>
+            </div>
+
+            <!-- Instansi Tujuan -->
+            <div class="mb-4">
+                <label for="instansi" class="block text-sm font-semibold text-gray-700">Ketikan Instansi Tujuan</label>
+                <input type="text" id="instansi" name="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan instansi tujuan" required>
+            </div>
+
+            <!-- Kategori Laporan -->
+            <div class="mb-4">
+                <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
+                <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
                     <option value="" disabled selected>Pilih kategori</option>
                     <option value="bencana">Bencana Alam</option>
                     <option value="demo">Demo</option>
                     <option value="kerusakan">Kerusakan Infrastruktur</option>
-                    </select>
-                    <p class="text-red-500 text-sm mt-1 hidden" id="error-kategori">Kategori harus dipilih!</p>
-                </div>
+                </select>
+            </div>
+
+            <!-- Pilihan Anonim atau Rahasia -->
+            <div class="mb-4 flex items-center">
+                <input type="radio" id="anonim" name="privasi" value="anonim" class="mr-2" required>
+                <label for="anonim" class="text-sm">Anonim</label>
+                <input type="radio" id="rahasia" name="privasi" value="rahasia" class="ml-4 mr-2">
+                <label for="rahasia" class="text-sm">Rahasia</label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-full text-l w-full focus:outline-none hover:bg-orange-700">Lapor!</button>
+            </div>
+        </form>
+        
             
-                <!-- Pilihan Anonim atau Rahasia -->
-                <div class="mb-4 flex items-center">
-                    <input type="radio" id="anonim" name="privacy" class="mr-2">
-                    <label for="anonim" class="text-sm">Anonim</label>
-                    <input type="radio" id="rahasia" name="privacy" class="ml-4 mr-2">
-                    <label for="rahasia" class="text-sm">Rahasia</label>
-                    <p class="text-red-500 text-sm mt-1 hidden" id="error-privacy">Pilih salah satu privasi!</p>
-                </div>
-            
-                <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-full text-l w-full focus:outline-none  hover:bg-orange-700">Lapor!</button>
-                </div>
-            </form>
-        </div>  
+ 
+        </div>
+        <script>
+            document.getElementById("laporanForm").addEventListener("submit", function(event) {
+    event.preventDefault();  // Cegah submit default dulu biar kita cek datanya
+
+    // Ambil data form
+    let judul = document.getElementById("judul").value;
+    let isi = document.getElementById("isi").value;
+    let tanggal = document.getElementById("tanggal").value;
+    let lokasi = document.getElementById("lokasi").value;
+    let instansi = document.getElementById("instansi").value;
+    let kategori = document.getElementById("kategori").value;
+    let privasi = document.querySelector('input[name="privasi"]:checked');
+
+    // Cek data form (simple validasi)
+    if (!judul || !isi || !tanggal || !lokasi || !instansi || !kategori || !privasi) {
+        alert("Semua field harus diisi!");
+        return;
+    }
+
+    // Kirim data via fetch ke PHP
+    fetch("proses_laporan.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `judul=${judul}&isi=${isi}&tanggal=${tanggal}&lokasi=${lokasi}&instansi=${instansi}&kategori=${kategori}&privasi=${privasi.value}`
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        window.location.href = "Lapor.php";  // Redirect kalau sukses
+    })
+    .catch(error => alert("Terjadi kesalahan: " + error));
+});
+
+        </script>
     </div>
-</div>
+    
 
                 <script src="Js/formValidation.js"></script>
                 <script src="Js/script.js"></script>
