@@ -271,7 +271,6 @@
                 <div class="mb-4">
                     <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
                     <select id="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary"   >
->>>>>>> 4a9fd099a9a16e0c9b1b2abaaa6bcc51b342a583
                     <option value="" disabled selected>Pilih kategori</option>
                     <option value="bencana">Bencana Alam</option>
                     <option value="demo">Demo</option>
@@ -313,11 +312,11 @@
     let kategori = document.getElementById("kategori").value;
     let privasi = document.querySelector('input[name="privasi"]:checked');
 
-    // Cek data form (simple validasi)
-    if (!judul || !isi || !tanggal || !lokasi || !instansi || !kategori || !privasi) {
-        alert("Semua field harus diisi!");
-        return;
-    }
+    // // Cek data form (simple validasi)
+    // if (!judul || !isi || !tanggal || !lokasi || !instansi || !kategori || !privasi) {
+    //     alert("Semua field harus diisi!");
+    //     return;
+    // }
 
     // Kirim data via fetch ke PHP
     fetch("proses_laporan.php", {
@@ -336,7 +335,7 @@
 });
 
         </script>
-=======
+
                 
     </div>
     

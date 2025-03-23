@@ -23,7 +23,7 @@ $sql = "INSERT INTO laporan (judul, isi, tanggal, lokasi, instansi, kategori, pr
         VALUES ('$judul', '$isi', '$tanggal', '$lokasi', '$instansi', '$kategori', '$privasi')";
 
 if ($conn->query($sql) === TRUE) {
-    // Redirect ke Lapor.php tanpa parameter
+    // Redirect ke Lapor.php tanpa parameter dfd
     header("Location: Lapor.php");
     exit();
 } else {
