@@ -7,7 +7,7 @@ $password = $_POST['password'];
 $hash_password = hash("sha256", $password);
 
 // Cek di tabel admin terlebih dahulu
-$sql_admin = "SELECT * FROM admin WHERE email = '$email' AND password = '$password'";
+$sql_admin = "SELECT * FROM admin WHERE email = '$email' AND password = '$hash_password'";
 $result_admin = $conn->query($sql_admin);
 
 if ($result_admin->num_rows > 0) {

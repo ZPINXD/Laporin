@@ -15,9 +15,5 @@
     <h1 id="dashboard-title" class="text-2xl font-bold transition-all">Daftar laporin</h1>
     <p id="welcome-text" class="text-gray-700 transition-all">Selamat datang di panel admin.</p>
 </div>
-
-
-   
-
 </body>
 </html>
