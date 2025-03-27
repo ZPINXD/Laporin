@@ -23,7 +23,7 @@ session_start();
             <form action="proseslogin.php" method="POST">
             <div class="mt-3">
                 <label for="email" class="block text-base mb-2">Email</label>
-                <input type="text" name="email" class="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600" placeholder="Masukkan Username..." />
+                <input type="text" name="email" class="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600" placeholder="Masukkan Email..." />
             </div>
             <div class="mt-3">
                 <label for="password" class="block text-base mb-2">Password</label>
