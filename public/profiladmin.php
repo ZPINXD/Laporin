@@ -1,76 +1,63 @@
+<?php 
+include_once ("database.php");
+$query = "SELECT * FROM admin";
+$hasil = mysqli_query($conn, $query);
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profiil Admin</title>
+    <title>Profil Admin</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-gray-100">
 
-<?php include "layout/navbaradmin.html"?>
+<?php include "layout/navbaradmin.php"; ?>
+
 <div id="content" class="flex-1 p-6 transition-all md:ml-64 flex flex-col justify-center items-center">
     <h2 class="text-3xl font-bold text-green-700 mb-6">Daftar Admin</h2>
-    <div class="w-full max-w-5xl overflow-x-auto bg-white shadow-lg ">
-        <table class="w-full text-sm text-left border border-green-700 ">
-            <thead class="bg-green-700 text-white text-base rounded-t-lg">
-                <tr>
-                    <th class="px-6 py-4">User ID</th>
-                    <th class="px-6 py-4">Nama</th>
-                    <th class="px-6 py-4">Email</th>
-                    <th class="px-20 py-4">Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="adminTableBody" class="bg-white divide-y divide-green-200">
-            </tbody>
-        </table>
+
+    <div class="w-full max-w-5xl">
+        <div id="button_tambah" class="flex justify-end mb-4">
+            <a href="tambahadmin.php" class="bg-green-600 text-white px-4 py-2 rounded-lg text-l focus:outline-none hover:bg-green-700">
+            Tambah <i class="fa-solid fa-plus"></i> 
+            </a>
+        </div>
+
+        <div class="overflow-x-auto bg-white shadow-lg">
+            <table class="w-full text-sm text-left border border-green-700">
+                <thead class="bg-green-700 text-white text-base">
+                    <tr>
+                        <th class="px-6 py-4">User ID</th>
+                        <th class="px-6 py-4">Nama</th>
+                        <th class="px-6 py-4">Email</th>
+                        <th class="px-20 py-4">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody" class="bg-white divide-y divide-green-200">
+                    <?php while ($data = mysqli_fetch_array($hasil)) { ?>
+                        <tr class="hover:bg-green-100 transition-all">
+                            <td class="px-6 py-4"><?php echo $data['id_admin']; ?></td>
+                            <td class="px-6 py-4"><?php echo $data['nama']; ?></td>
+                            <td class="px-6 py-4"><?php echo $data['email']; ?></td>
+                            <td class="px-6 py-4 flex space-x-2">
+                                <a href="ubahadmin.php?id=<?php echo $data['id_admin']; ?>" 
+                                class="bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-yellow-600 transition-all">
+                                <i class="fa-regular fa-pen-to-square"></i> Edit 
+                                </a>
+                                <a href="hapusadmin.php?id=<?php echo $data['id_admin']; ?>" 
+                                class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition-all">
+                                <i class="fa-solid fa-trash"></i> Hapus
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-<script>
-    // Load data admin saat halaman dibuka
-    function loadAdminData() {
-        fetch("prosesloadadmin.php")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("adminTableBody").innerHTML = data;
-                addEventListeners();
-            })
-            .catch(error => console.error("Error loading data:", error));
-    }
-
-    // Event listener untuk tombol edit dan delete
-    function addEventListeners() {
-        document.querySelectorAll(".delete-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let adminId = this.getAttribute("data-id");
-                if (confirm("Apakah Anda yakin ingin menghapus admin ini?")) {
-                    deleteAdmin(adminId);
-                }
-            });
-        });
-
-        document.querySelectorAll(".edit-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let adminId = this.getAttribute("data-id");
-                alert("Fitur edit untuk admin ID " + adminId + " belum diimplementasikan.");
-            });
-        });
-    }
-
-    // Fungsi untuk menghapus admin
-    function deleteAdmin(adminId) {
-        fetch("delete_admin.php?id=" + adminId, { method: "GET" })
-            .then(response => response.text())
-            .then(data => {
-                alert(data);
-                loadAdminData();
-            })
-            .catch(error => console.error("Error deleting data:", error));
-    }
-
-    // Load data admin pertama kali
-    loadAdminData();
-</script>
 </body>
 </html>

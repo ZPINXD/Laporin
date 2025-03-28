@@ -1,23 +1,67 @@
+<?php 
+include_once ("database.php");
+$query = "SELECT * FROM instansi";
+$hasil = mysqli_query($conn, $query);
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Profil Admin</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-gray-100">
 
-<?php include "layout/navbaradmin.html"?>
+<?php include "layout/navbaradmin.php"; ?>
 
-    <!-- Konten Utama -->
-    <div id="content" class="flex-1 p-6 transition-all md:ml-64 flex flex-col justify-center items-center h-screen text-center">
-    <h1 id="dashboard-title" class="text-2xl font-bold transition-all">Daftar instansi</h1>
-    <p id="welcome-text" class="text-gray-700 transition-all">Selamat datang di panel admin.</p>
+<div id="content" class="flex-1 p-6 transition-all md:ml-64 flex flex-col justify-center items-center">
+    <h2 class="text-3xl font-bold text-orange-700 mb-6">Daftar instansi</h2>
+
+    <div class="w-full max-w-5xl">
+        <div id="button_tambah" class="flex justify-end mb-4">
+            <a href="tambahinstansi.php" class="bg-green-600 text-white px-4 py-2 rounded-lg text-l focus:outline-none hover:bg-green-700">
+            Tambah <i class="fa-solid fa-plus"></i> 
+            </a>
+        </div>
+
+        <form action="prosesubahstatus.php" method="POST">
+    <div class="overflow-x-auto bg-white shadow-lg">
+        <table class="w-full text-sm text-left border border-orange-700">
+            <thead class="bg-orange-700 text-white text-base">
+                <tr>
+                    <th class="px-6 py-4">ID instansi</th>
+                    <th class="px-6 py-4">Nama instansi</th>
+                    <th class="px-6 py-4">Status</th>
+                </tr>
+            </thead>
+            <tbody id="adminTableBody" class="bg-white divide-y divide-orange-200">
+                <?php while ($data = mysqli_fetch_array($hasil)) { ?>
+                    <tr class="hover:bg-orange-100 transition-all">
+                        <td class="px-6 py-4"><?php echo $data['id_instansi']; ?></td>
+                        <td class="px-6 py-4"><?php echo $data['nama_instansi']; ?></td>
+                        <td class="px-6 py-4">
+                            <select name="status[<?php echo $data['id_instansi']; ?>]" class="status-dropdown text-sm w-full px-2 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none">
+                                <option value="Aktif" <?php if ($data['status'] == 'Aktif') echo 'selected'; ?>>Aktif</option>
+                                <option value="Nonaktif" <?php if ($data['status'] == 'Nonaktif') echo 'selected'; ?>>Nonaktif</option>
+                            </select>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="w-full mt-5 max-w-5xl">
+        <div id="button_simpan" class="flex mb-4">
+            <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded-lg text-l focus:outline-none hover:bg-orange-700">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan
+            </button>
+        </div>
+    </div>
+</form>
+
 </div>
-
-
-   
 
 </body>
 </html>

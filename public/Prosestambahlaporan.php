@@ -2,26 +2,31 @@
 include_once("database.php");
 session_start();
 
+// Periksa apakah user sudah login
+if (!isset($_SESSION['id_user'])) {
+    // Jika belum login, alihkan ke halaman login dengan pesan error
+    header("Location: login.php?error=belum_login");
+    exit();
+}
+
 // Mengecek koneksi
 if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Mengecek apakah form telah disubmit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Mengambil data dari form
-    $id_user = $_SESSION['id_user'] ?? null;
+    $id_user = $_SESSION['id_user']; // Pastikan user sudah login
     $judul = $_POST['judul'];
     $isi = $_POST['isi'];
     $tanggal = $_POST['tanggal'];
     $lokasi = $_POST['lokasi'];
     $instansi = $_POST['instansi'];
     $kategori = $_POST['kategori'];
-    $privasi = isset($_POST['privasi']) ? $_POST['privasi'] : 'publik'; // Sesuai dengan name di form
+    $privasi = $_POST['privasi'] ?? 'publik'; 
 
-    // Menyimpan data ke database
-    $sql = "INSERT INTO laporan (id_user, judul, isi, tanggal, lokasi, instansi, kategori, privasi) 
-            VALUES ('$id_user','$judul', '$isi', '$tanggal', '$lokasi', '$instansi', '$kategori', '$privasi')";
+    $sql = "INSERT INTO laporan (id_user, judul, isi, tanggal, lokasi, instansi, kategori, privasi, status) 
+            VALUES ('$id_user', '$judul', '$isi', '$tanggal', '$lokasi', '$instansi', '$kategori', '$privasi', 'dikirim')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: Lapor.php");

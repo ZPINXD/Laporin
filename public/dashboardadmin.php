@@ -1,4 +1,4 @@
-<?php session_start();?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,11 +9,11 @@
 </head>
 <body class="bg-gray-100">
 
-<?php include "layout/navbaradmin.html"?>
+    <?php include "layout/navbaradmin.php"?>
 
     <!-- Konten Utama -->
     <div id="content" class="flex-1 p-6 transition-all md:ml-64 flex flex-col justify-center items-center h-screen text-center">
-    <h1 class="text-2xl font-bold transition-all">Dashboard Admin</h1>
+    <h1 class="text-2xl font-bold transition-all">Dashboard Admin <span class="text-orange-500">Lapor.in</span></h1>
     <p  class="text-gray-700 transition-all">Selamat Datang <?= isset($_SESSION["nama"]) ? htmlspecialchars($_SESSION["nama"]) : "" ?> </p>
 </div>
 </body>

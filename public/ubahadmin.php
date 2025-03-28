@@ -2,9 +2,9 @@
 include_once("database.php");
 
 if (isset($_GET['id'])) {
-    $id_admin = $_GET['id']; // Ambil ID dari URL
+    $id_admin = $_GET['id']; 
 
-    // Pastikan query menggunakan `id_admin` sesuai dengan struktur tabel
+    
     $stmt = $conn->prepare("SELECT * FROM admin WHERE id_admin = ?");
     $stmt->bind_param("i", $id_admin);
     $stmt->execute();
@@ -30,6 +30,7 @@ if (isset($_GET['id'])) {
     <title>Edit Admin</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <body class="bg-gray-100 flex justify-center items-center h-screen">
 
 <div class="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -47,22 +48,29 @@ if (isset($_GET['id'])) {
         <label class="block font-semibold">Email:</label>
         <input type="text" name="email" value="<?= htmlspecialchars($admin['email']); ?>" class="w-full px-4 py-2 border rounded-lg mb-3" required>
 
+        <label class="block font-semibold">Password Sebelumnya:</label>
+        <input type="password" id="current_password"name="current_password"  class="w-full px-4 py-2 border rounded-lg mb-3">
+
         <label class="block font-semibold">Password:</label>
         <input type="password" id="password"name="password"  class="w-full px-4 py-2 border rounded-lg mb-3">
-        <div class="mt-3 text-gray-500" >
+        <div class=" text-gray-500" >
                 <input type="checkbox" onclick="togglePassword()"> Show password
             </div>
-            <script>
-                function togglePassword() {
-                    var pass = document.getElementById("password");
-                    if (pass.type === "password") {
-                        pass.type = "text";
-                    } else {
-                        pass.type = "password";
+                <script>
+                    function togglePassword() {
+                        var pass1 = document.getElementById("current_password");
+                        var pass2 = document.getElementById("password");
+                        
+                        if (pass1.type === "password" && pass2.type === "password") {
+                            pass1.type = "text";
+                            pass2.type = "text";
+                        } else {
+                            pass1.type = "password";
+                            pass2.type = "password";
+                        }
                     }
-                }
             </script>
-        <div class="flex justify-between">
+        <div class="flex justify-between mt-5">
         <button type="submit" name="simpan" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Simpan</button>
             <a href="profiladmin.php" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Kembali</a>
         </div>

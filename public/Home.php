@@ -162,59 +162,68 @@
             </div>
         </div>
         
+    <?php
+    include_once("database.php");
 
-        <div id="formaduan" class="max-w-4xl mx-auto p-8">
+    // Ambil daftar instansi dari database
+    $query_instansi = "SELECT id_instansi, nama_instansi FROM instansi";
+    $result_instansi = mysqli_query($conn, $query_instansi);
+    ?>
+    <div id="formaduan" class="max-w-4xl mx-auto p-8">
         <div  class="bg-white p-6 rounded-lg shadow-lg ">
           <!-- Title -->
           <h2  class="text-2xl text-black font-semibold text-center mb-6">Sampaikan Laporan Anda</h2>
           <!-- Form Content -->
-
             <div id="formContent">
-            <form id="laporanForm" action="Prosestambahlaporan.php" method="POST">
-    <!-- Judul Laporan -->
-    <div class="mb-4">
-        <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
-        <input type="text" id="judul" name="judul" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan judul laporan" required>
-        <p class="text-red-500 text-sm mt-1 hidden" id="error-judul">Judul harus diisi!</p>
-    </div>
+                <form id="laporanForm" action="Prosestambahlaporan.php" method="POST">
+                     <!-- Judul Laporan -->
+                    <div class="mb-4">
+                        <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
+                        <input type="text" id="judul" name="judul" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan judul laporan" required>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-judul">Judul harus diisi!</p>
+                    </div>
 
-    <!-- Isi Laporan -->
-    <div class="mb-4">
-        <label for="isi" class="block text-sm font-semibold text-gray-700">Ketikan Isi Laporan Anda</label>
-        <textarea id="isi" name="isi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" rows="4" placeholder="Masukkan isi laporan" required></textarea>
-        <p class="text-red-500 text-sm mt-1 hidden" id="error-isi">Isi laporan harus diisi!</p>
-    </div>
+                     <!-- Isi Laporan -->
+                    <div class="mb-4">
+                        <label for="isi" class="block text-sm font-semibold text-gray-700">Ketikan Isi Laporan Anda</label>
+                        <textarea id="isi" name="isi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" rows="4" placeholder="Masukkan isi laporan" required></textarea>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-isi">Isi laporan harus diisi!</p>
+                    </div>
 
-    <!-- Tanggal Kejadian -->
-    <div class="mb-4">
-        <label for="tanggal" class="block text-sm font-semibold text-gray-700">Pilih Tanggal Kejadian</label>
-        <input type="date" id="tanggal" name="tanggal" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
-        <p class="text-red-500 text-sm mt-1 hidden" id="error-tanggal">Tanggal harus dipilih!</p>
-    </div>
+                    <!-- Tanggal Kejadian -->
+                    <div class="mb-4">
+                        <label for="tanggal" class="block text-sm font-semibold text-gray-700">Pilih Tanggal Kejadian</label>
+                        <input type="date" id="tanggal" name="tanggal" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-tanggal">Tanggal harus dipilih!</p>
+                    </div>
 
-    <!-- Lokasi Kejadian -->
-    <div class="mb-4">
-        <label for="lokasi" class="block text-sm font-semibold text-gray-700">Ketikan Lokasi Kejadian</label>
-        <input type="text" id="lokasi" name="lokasi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan lokasi kejadian" required>
-        <p class="text-red-500 text-sm mt-1 hidden" id="error-lokasi">Lokasi kejadian harus diisi!</p>
-    </div>
+                    <!-- Lokasi Kejadian -->
+                    <div class="mb-4">
+                        <label for="lokasi" class="block text-sm font-semibold text-gray-700">Ketikan Lokasi Kejadian</label>
+                        <input type="text" id="lokasi" name="lokasi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan lokasi kejadian" required>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-lokasi">Lokasi kejadian harus diisi!</p>
+                    </div>
 
-    <!-- Instansi Tujuan -->
-    <div class="mb-4">
-        <label for="instansi" class="block text-sm font-semibold text-gray-700">Ketikan Instansi Tujuan</label>
-        <input type="text" id="instansi" name="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" placeholder="Masukkan instansi tujuan" required>
-        <p class="text-red-500 text-sm mt-1 hidden" id="error-instansi">Instansi tujuan harus diisi!</p>
-    </div>
+                    <!-- Instansi Tujuan -->
+                    <div class="mb-4">
+                        <label for="instansi" class="block text-sm font-semibold text-gray-700">Pilih Instansi Tujuan</label>
+                        <select id="instansi" name="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+                            <option value="" disabled selected>Pilih instansi</option>
+                            <?php while ($row = mysqli_fetch_assoc($result_instansi)): ?>
+                                <option value="<?= $row['id_instansi']; ?>"><?= htmlspecialchars($row['nama_instansi']); ?></option>
+                            <?php endwhile; ?>
+                        </select>
+                    </div>
 
-    <!-- Kategori Laporan -->
-    <div class="mb-4">
-        <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
-        <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
-            <option value="" disabled selected>Pilih kategori</option>
-            <option value="bencana">Bencana Alam</option>
-            <option value="demo">Demo</option>
-            <option value="kerusakan">Kerusakan Infrastruktur</option>
-        </select>
+                <!-- Kategori Laporan -->
+                <div class="mb-4">
+                    <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
+                    <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+                        <option value="" disabled selected>Pilih kategori</option>
+                        <option value="bencana">Bencana Alam</option>
+                        <option value="demo">Demo</option>
+                        <option value="kerusakan">Kerusakan Infrastruktur</option>
+                    </select>
     </div>
 
     <!-- Pilihan Anonim atau Rahasia -->

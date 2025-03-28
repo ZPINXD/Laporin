@@ -7,10 +7,11 @@ if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Menampilkan semua laporan yang ada
-$sql = "SELECT laporan.*, user.username 
+// Query untuk menampilkan laporan dengan nama instansi
+$sql = "SELECT laporan.*, user.username, instansi.nama_instansi 
         FROM laporan 
         LEFT JOIN user ON laporan.id_user = user.id_user 
+        LEFT JOIN instansi ON laporan.instansi = instansi.id_instansi 
         ORDER BY laporan.id_laporan DESC";
 
 $result = $conn->query($sql);
@@ -31,12 +32,12 @@ if ($result->num_rows > 0) {
         echo '</div>';
         
         echo '<div class="flex justify-between text-sm text-gray-500 mb-2">';
-        echo '<p>Website - ' . htmlspecialchars($row['instansi']) . '</p>';
+        echo '<p>Website - ' . htmlspecialchars($row['nama_instansi']) . '</p>'; // Menampilkan Nama Instansi
         echo '<p>Selesai otomatis dalam 10 hari</p>';
         echo '</div>';
         
         echo '<div class="mb-4">';
-        echo '<p class="text-primary font-bold">Terdisposisi ' . htmlspecialchars($row['instansi']) . '</p>';
+        echo '<p class="text-primary font-bold">Terdisposisi ' . htmlspecialchars($row['nama_instansi']) . '</p>'; // Menampilkan Nama Instansi
         echo '</div>';
         
         echo '<h2 class="text-lg font-bold text-teal-600 mb-2">' . htmlspecialchars($row['judul']) . '</h2>';
