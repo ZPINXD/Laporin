@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Mengambil data dari form
-    $id_user = $_SESSION['id_user']; // Pastikan user sudah login
+    $id_user = $_SESSION['id_user']; 
     $judul = $_POST['judul'];
     $isi = $_POST['isi'];
     $tanggal = $_POST['tanggal'];
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $privasi = $_POST['privasi'] ?? 'publik'; 
 
     $sql = "INSERT INTO laporan (id_user, judul, isi, tanggal, lokasi, instansi, kategori, privasi, status) 
-            VALUES ('$id_user', '$judul', '$isi', '$tanggal', '$lokasi', '$instansi', '$kategori', '$privasi', 'dikirim')";
+            VALUES ('$id_user', '$judul', '$isi', '$tanggal', '$lokasi', '$instansi', '$kategori', '$privasi', 'Pending')";
 
     if ($conn->query($sql) === TRUE) {
         header("Location: Lapor.php");

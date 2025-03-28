@@ -221,8 +221,7 @@
                     <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
                         <option value="" disabled selected>Pilih kategori</option>
                         <option value="bencana">Bencana Alam</option>
-                        <option value="demo">Demo</option>
-                        <option value="kerusakan">Kerusakan Infrastruktur</option>
+                        <option value="demo">Aduan</option>
                     </select>
     </div>
 

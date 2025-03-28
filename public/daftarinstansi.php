@@ -32,7 +32,9 @@ $hasil = mysqli_query($conn, $query);
                 <tr>
                     <th class="px-6 py-4">ID instansi</th>
                     <th class="px-6 py-4">Nama instansi</th>
+                    <th class="px-6 py-4">Informasi Kontak</th>
                     <th class="px-6 py-4">Status</th>
+                    <th class="px-20 py-4">Aksi</th>
                 </tr>
             </thead>
             <tbody id="adminTableBody" class="bg-white divide-y divide-orange-200">
@@ -40,11 +42,22 @@ $hasil = mysqli_query($conn, $query);
                     <tr class="hover:bg-orange-100 transition-all">
                         <td class="px-6 py-4"><?php echo $data['id_instansi']; ?></td>
                         <td class="px-6 py-4"><?php echo $data['nama_instansi']; ?></td>
+                        <td class="px-6 py-4"><?php echo $data['Kontak']; ?></td>
                         <td class="px-6 py-4">
                             <select name="status[<?php echo $data['id_instansi']; ?>]" class="status-dropdown text-sm w-full px-2 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:outline-none">
                                 <option value="Aktif" <?php if ($data['status'] == 'Aktif') echo 'selected'; ?>>Aktif</option>
                                 <option value="Nonaktif" <?php if ($data['status'] == 'Nonaktif') echo 'selected'; ?>>Nonaktif</option>
                             </select>
+                        <td class="px-6 py-4 flex space-x-2">
+                            <a href="ubahinstansi.php?id=<?php echo $data['id_instansi']; ?>" 
+                            class="bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-yellow-600 transition-all">
+                            <i class="fa-regular fa-pen-to-square"></i> Edit 
+                            </a>
+                            <a href="hapusinstansi.php?id=<?php echo $data['id_instansi']; ?>"  
+                            class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition-all"
+                            onclick="return confirm('Apakah Anda yakin ingin menghapus instansi ini?')">
+                            <i class="fa-solid fa-trash"></i> Hapus
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>
