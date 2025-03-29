@@ -175,7 +175,7 @@
           <h2  class="text-2xl text-black font-semibold text-center mb-6">Sampaikan Laporan Anda</h2>
           <!-- Form Content -->
             <div id="formContent">
-                <form id="laporanForm" action="Prosestambahlaporan.php" method="POST">
+                <form id="laporanForm" action="Prosestambahlaporan.php" method="POST" enctype="multipart/form-data">
                      <!-- Judul Laporan -->
                     <div class="mb-4">
                         <label for="judul" class="block text-sm font-semibold text-gray-700">Ketikan Judul Laporan Anda</label>
@@ -215,35 +215,40 @@
                         </select>
                     </div>
 
-                <!-- Kategori Laporan -->
-                <div class="mb-4">
-                    <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
-                    <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
-                        <option value="" disabled selected>Pilih kategori</option>
-                        <option value="bencana">Bencana Alam</option>
-                        <option value="demo">Aduan</option>
-                    </select>
-    </div>
+                    <!-- Kategori Laporan -->
+                    <div class="mb-4">
+                        <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
+                        <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+                            <option value="" disabled selected>Pilih kategori</option>
+                            <option value="bencana">Bencana Alam</option>
+                            <option value="demo">Aduan</option>
+                        </select>
+                    </div>
 
-    <!-- Pilihan Anonim atau Rahasia -->
-    <div class="mb-4 flex items-center">
-        <input type="radio" id="anonim" name="privasi" value="anonim" class="mr-2" required>
-        <label for="anonim" class="text-sm">Anonymous</label>
-        <input type="radio" id="publik" name="privasi" value="publik" class="ml-4 mr-2" required>
-        <label for="publik" class="text-sm">Publik</label>
-        <p class="text-red-500 text-sm mt-1 hidden" id="error-privacy">Pilih salah satu privasi!</p>
-    </div>
 
-    <!-- Submit Button -->
-    <div class="text-center">
-        <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-full text-l w-full focus:outline-none hover:bg-orange-700">Lapor!</button>
-    </div>
-</form>
+                    <div class="mb-4">
+                            <label for="lampiran" class="block text-sm font-semibold text-gray-700">Upload Bukti Aduan</label>
+                            <input type="file" id="lampiran" name="lampiran" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
+                            <p class="text-red-500 text-sm mt-1 hidden" id="error-lampiran">File harus diunggah!</p>
+                    </div>
 
+                    <!-- Pilihan Anonim atau Rahasia -->
+                    <div class="mb-4 flex items-center">
+                        <input type="radio" id="anonim" name="privasi" value="anonim" class="mr-2" required>
+                        <label for="anonim" class="text-sm">Anonymous</label>
+                        <input type="radio" id="publik" name="privasi" value="publik" class="ml-4 mr-2" required>
+                        <label for="publik" class="text-sm">Publik</label>
+                        <p class="text-red-500 text-sm mt-1 hidden" id="error-privacy">Pilih salah satu privasi!</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-full text-l w-full focus:outline-none hover:bg-orange-700">Lapor!</button>
+                    </div>
+                </form>
             </div>
-
         </div>  
-        </div>
+    </div>
         <script>
             document.getElementById("laporanForm").addEventListener("submit", function(event) {
     event.preventDefault();  // Cegah submit default dulu biar kita cek datanya

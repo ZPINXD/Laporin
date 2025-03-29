@@ -22,9 +22,9 @@ $hasil = mysqli_query($conn, $query);
 
 <?php include "layout/navbaradmin.php"; ?>
 
+<form action="prosesubahstatuslaporan.php" method="POST">
 <div id="content" class="flex-1 p-6 transition-all md:ml-64 flex flex-col justify-center items-center">
      <h2 class="text-3xl font-bold text-orange-700 mb-6">Daftar Laporan</h2>
-<form action="prosesubahstatuslaporan.php" method="POST">
 <div class="overflow-x-auto w-full bg-white shadow-lg">
     <table class="w-full min-w-full text-sm text-left border border-orange-700">
         <thead class="bg-orange-700 text-white text-base">
@@ -38,6 +38,7 @@ $hasil = mysqli_query($conn, $query);
                 <th class="px-4 py-4">Lokasi</th>
                 <th class="px-4 py-4">Instansi</th>
                 <th class="px-4 py-4">Kategori</th>
+                <th class="px-4 py-4">Lampiran</th>
                 <th class="px-4 py-4">Privasi</th>
                 <th class="px-4 py-4">Status</th>
             </tr>
@@ -60,6 +61,17 @@ $hasil = mysqli_query($conn, $query);
                     <td class="px-4 py-4"><?php echo htmlspecialchars($data['nama_instansi']); ?></td>
                     <td class="px-4 py-4"><?php echo htmlspecialchars($data['kategori']); ?></td>
                     <td class="px-4 py-4">
+                        <?php if (!empty($data['lampiran'])): ?>
+                            <a href="download_lampiran.php?id=<?php echo $data['id_laporan']; ?>" 
+                            target="_blank" 
+                            class="text-blue-500">
+                                Lihat Lampiran
+                            </a>
+                        <?php else: ?>
+                            <span class="text-gray-500">Tidak ada lampiran</span>
+                        <?php endif; ?>
+                    </td>
+                    <td class="px-4 py-4">
                         <?php echo ($data['privasi'] == 'publik') ? 
                             '<span class="text-green-600 font-semibold">Publik</span>' : 
                             '<span class="text-red-600 font-semibold">Anonymous</span>'; 
@@ -78,6 +90,7 @@ $hasil = mysqli_query($conn, $query);
         </tbody>
     </table>
 </div>
+</form>
 
         <div class="w-full mt-5 ">
             <div id="button_simpan" class="flex mb-4">
