@@ -27,6 +27,15 @@ $result_user = $conn->query($sql_user);
 
 if ($result_user->num_rows > 0) {
     $data = $result_user->fetch_assoc();
+    
+    // Cek apakah status_user adalah "Nonaktif"
+    if ($data['status_user'] === "Nonaktif") {
+        $_SESSION['login_message'] = "Akun Anda telah dinonaktifkan. Silakan hubungi admin!";
+        header("location: login.php");
+        exit;
+    }
+
+    // Jika status_user aktif, lanjut login
     $_SESSION["email"] = $data["email"];
     $_SESSION["username"] = $data["username"];
     $_SESSION["id_user"] = $data["id_user"];

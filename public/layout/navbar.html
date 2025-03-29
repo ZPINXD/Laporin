@@ -1,77 +1,121 @@
-<!-- bug tidak bisa mengubah warna teks ketika scroll
-<script>
-let lastScrollTop = 0;
-window.addEventListener("scroll", function () {
-    let navbar = document.getElementById("navbar");
-    let currentScroll = window.scrollY;
-
-    if (currentScroll > lastScrollTop) {
-        // Jika discroll ke bawah, tambahkan efek blur dan transparansi
-        navbar.classList.add("bg-gray/50", "backdrop-blur-md", "backdrop-opacity-30", "shadow-lg");
-        navbar.classList.remove("bg-gray-900");
-    } else if (currentScroll === 0) {
-        // Jika kembali ke atas, tetap putih
-        navbar.classList.remove("bg-gray/50", "backdrop-blur-md", "shadow-lg");
-        navbar.classList.add("bg-gray-900");
-    }
-
-    lastScrollTop = Math.max(0, currentScroll); // Perbaikan agar tidak negatif
-});
-
-</script> 
--->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <body>
-<nav id="navbar" class="fixed top-0 left-0 w-full bg-gray-900 shadow-md p-4 flex justify-between items-center z-50 transition-all duration-300">
-    <div class="flex items-center space-x-2">
-        <div class="bg-green-700 w-8 h-8 flex items-center justify-center rounded-full shadow">
-            <span class="text-white text-lg font-bold">L</span>
+    <nav id="navbar" class="fixed top-0 left-0 w-full bg-gray-900 shadow-md p-4 flex justify-between items-center z-50 transition-all duration-300">
+        <div class="flex items-center space-x-2">
+            <div class="bg-green-700 w-8 h-8 flex items-center justify-center rounded-full shadow">
+                <span class="text-white text-lg font-bold">L</span>
+            </div>
+            <h2 class="text-white text-lg font-bold">Lapor.in</h2>
         </div>
-        <h2 class="text-white text-lg font-bold">Lapor.in</h2>
+
+        <!-- Navigasi Desktop -->
+        <ul class="hidden md:flex space-x-6">
+            <li><a href="Home.php" class="text-white font-semibold hover:text-orange-400">BERANDA</a></li>
+            <li><a href="About.php" class="text-white font-semibold hover:text-orange-400">TENTANG LAPOR.IN</a></li>
+            <li><a href="Lapor.php" class="text-white font-semibold hover:text-orange-400">LAPOR</a></li>
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+            <!-- Dropdown Profil -->
+            <div class="relative">
+                <button id="profile-toggle" class="text-white font-semibold hover:text-orange-400 flex items-center space-x-2">
+                    PROFIL<i class="fa-solid fa-caret-down px-1"></i>
+                </button>
+                <div id="profile-dropdown" class="hidden absolute top-12 right-4 w-48 border-2 border-gray-600 bg-white shadow-md rounded-md z-50">
+                    <a href="ubahprofil.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Ubah Profil</a>
+                    <a href="laporan_saya.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Lihat Laporan Saya</a>
+                    <a href="proseslogout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Keluar</a>
+                </div>
+                
+            </div>
+            <?php else: ?>
+            <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
+            <a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a>
+            <?php endif; ?>
+        </ul>
+
+        <!-- Navigasi Mobile -->
+        <div class="md:hidden flex items-center space-x-4">
+            <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
+            <button id="profile-toggle-mobile" class="text-white font-semibold hover:text-orange-400 flex items-center space-x-2">
+                PROFIL<i class="fa-solid fa-caret-down px-1"></i>
+            </button>
+            <div id="profile-dropdown-mobile" class="hidden absolute top-16 right-4 w-48 border-2 border-gray-600 bg-white shadow-md rounded-md z-50">
+                <a href="ubahprofil.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Ubah Profil</a>
+                <a href="laporan_saya.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Lihat Laporan Saya</a>
+                <a href="proseslogout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Keluar</a>
+            </div>
+            <?php endif; ?>
+            
+            <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <!-- Dropdown Menu Mobile -->
+    <div id="dropdown-menu" class="hidden fixed top-16 right-4 w-48 border-2 border-gray-600 bg-white shadow-md rounded-md z-50 md:hidden">
+        <ul class="flex flex-col space-y-2 px-4 py-2">
+            <li><a href="Home.php" class="block text-gray-600 font-semibold hover:text-orange-400">HOME</a></li>
+            <li><a href="About.php" class="block text-gray-600 font-semibold hover:text-orange-400">ABOUT US</a></li>
+            <li><a href="Lapor.php" class="block text-gray-600 font-semibold hover:text-orange-400">LAPOR</a></li>
+            <?php if (!isset($_SESSION['is_login']) || $_SESSION['is_login'] !== true): ?>
+            <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
+            <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
+            <?php endif; ?>
+        </ul>
     </div>
 
-    <!-- Navigasi Desktop -->
-    <ul class="hidden md:flex space-x-6 ">
-        <li><a href="Home.php" class="text-white font-semibold hover:text-orange-400">BERANDA</a></li>
-        <li><a href="About.php" class="text-white font-semibold hover:text-orange-400">TENTANG LAPOR.IN</a></li>
-        <li><a href="Lapor.php" class="text-white font-semibold hover:text-orange-400">LAPOR</a></li>
-        
-        <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
-        <a href="proseslogout.php" class="text-white font-semibold hover:text-orange-400">KELUAR</a>
-        <?php else: ?>
-        <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
-        <a href="register.php" class="text-white font-semibold hover:text-orange-400">DAFTAR</a>
-        <?php endif; ?>
-
-    </ul>
-
-    <!-- Tombol Menu untuk HP -->
-    <button id="menu-toggle" class="md:hidden text-gray-600 text-2xl focus:outline-none">
-        ☰
-    </button>
-</nav>
-
-<!-- Dropdown Menu (Hidden by Default) -->
-<div id="dropdown-menu" class="hidden fixed top-16 right-4 w-48 border-2 border-gray-600 bg-white shadow-md rounded-md z-50 md:hidden">
-    <ul class="flex flex-col space-y-2 px-4 py-2">
-        <li><a href="Home.php" class="block text-gray-600 font-semibold hover:text-orange-400">HOME</a></li>
-        <li><a href="About.php" class="block text-gray-600 font-semibold hover:text-orange-400">ABOUT US</a></li>
-        <li><a href="Lapor.php" class="block text-gray-600 font-semibold hover:text-orange-400">LAPOR</a></li>
-        <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login'] === true): ?>
-    <li><a href="logout.php" class="block text-gray-600 font-semibold hover:text-orange-400">LOGOUT</a></li>
-<?php else: ?>
-    <li><a href="login.php" class="block text-gray-600 font-semibold hover:text-orange-400">MASUK</a></li>
-    <li><a href="register.php" class="block text-gray-600 font-semibold hover:text-orange-400">DAFTAR</a></li>
-<?php endif; ?>
-    </ul>
-</div>
-
-
-<!-- Home Cover -->
-<script>
-    document.getElementById("menu-toggle").addEventListener("click", function () {
-        let dropdown = document.getElementById("dropdown-menu");
-        dropdown.classList.toggle("hidden");
-});
-</script>
-
+    <!-- Script Dropdown -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let hamburgerMenu = document.getElementById("menu-toggle");
+            let menuDropdown = document.getElementById("dropdown-menu");
+    
+            let profileToggle = document.getElementById("profile-toggle");
+            let profileDropdown = document.getElementById("profile-dropdown");
+    
+            let profileToggleMobile = document.getElementById("profile-toggle-mobile");
+            let profileDropdownMobile = document.getElementById("profile-dropdown-mobile");
+    
+            // Fungsi untuk menutup semua dropdown kecuali yang sedang diklik
+            function closeAllDropdowns(except = null) {
+                if (except !== menuDropdown) menuDropdown.classList.add("hidden");
+                if (except !== profileDropdown && profileDropdown) profileDropdown.classList.add("hidden");
+                if (except !== profileDropdownMobile && profileDropdownMobile) profileDropdownMobile.classList.add("hidden");
+            }
+    
+            // Toggle dropdown menu utama (hamburger menu)
+            hamburgerMenu.addEventListener("click", function (event) {
+                event.stopPropagation();
+                let isOpen = !menuDropdown.classList.contains("hidden");
+                closeAllDropdowns(); // Tutup dropdown lain
+                if (!isOpen) menuDropdown.classList.remove("hidden"); // Jika belum terbuka, buka dropdown
+            });
+    
+            // Toggle dropdown profil desktop
+            if (profileToggle) {
+                profileToggle.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    let isOpen = !profileDropdown.classList.contains("hidden");
+                    closeAllDropdowns(); // Tutup dropdown lain
+                    if (!isOpen) profileDropdown.classList.remove("hidden");
+                });
+            }
+    
+            // Toggle dropdown profil mobile
+            if (profileToggleMobile) {
+                profileToggleMobile.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    let isOpen = !profileDropdownMobile.classList.contains("hidden");
+                    closeAllDropdowns(); // Tutup dropdown lain
+                    if (!isOpen) profileDropdownMobile.classList.remove("hidden");
+                });
+            }
+    
+            // Tutup dropdown jika klik di luar
+            document.addEventListener("click", function () {
+                closeAllDropdowns();
+            });
+        });
+    </script>
+    
 </body>

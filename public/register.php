@@ -14,7 +14,7 @@
 	<?php include "layout/navbar.html"?>
 
 <div class="bg-white rounded shadow-md max-w-4xl mx-auto p-8 mt-24">
-    <h2 class="text-2xl font-bold mb-10 text-center"><i class="fa-solid fa-user"></i> Form Registrasi</h2>
+    <h2 class="text-2xl font-bold mb-10 text-center"><i class="fa-solid fa-user px-2"></i>Daftar Akun</h2>
     <form action="prosesregister.php" method="POST">
         <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
         <div>

@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
         <label class="block font-semibold">Password:</label>
         <input type="password" id="password"name="password"  class="w-full px-4 py-2 border rounded-lg mb-3">
         <div class=" text-gray-500" >
-                <input type="checkbox" onclick="togglePassword()"> Show password
+        <input type="checkbox" onclick="togglePassword()"> Show password
             </div>
                 <script>
                     function togglePassword() {

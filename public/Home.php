@@ -166,8 +166,12 @@
     include_once("database.php");
 
     // Ambil daftar instansi dari database
-    $query_instansi = "SELECT id_instansi, nama_instansi FROM instansi";
-    $result_instansi = mysqli_query($conn, $query_instansi);
+    $query_instansi = "SELECT id_instansi, nama_instansi FROM instansi WHERE status = 'Aktif'";
+    $result_instansi = mysqli_query($conn, $query_instansi);    
+
+    $data_instansi = mysqli_fetch_all($result_instansi, MYSQLI_ASSOC);
+
+
     ?>
     <div id="formaduan" class="max-w-4xl mx-auto p-8">
         <div  class="bg-white p-6 rounded-lg shadow-lg ">
@@ -209,11 +213,12 @@
                         <label for="instansi" class="block text-sm font-semibold text-gray-700">Pilih Instansi Tujuan</label>
                         <select id="instansi" name="instansi" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
                             <option value="" disabled selected>Pilih instansi</option>
-                            <?php while ($row = mysqli_fetch_assoc($result_instansi)): ?>
+                            <?php foreach ($data_instansi as $row) : ?>
                                 <option value="<?= $row['id_instansi']; ?>"><?= htmlspecialchars($row['nama_instansi']); ?></option>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         </select>
                     </div>
+
 
                     <!-- Kategori Laporan -->
                     <div class="mb-4">
@@ -250,39 +255,7 @@
         </div>  
     </div>
         <script>
-            document.getElementById("laporanForm").addEventListener("submit", function(event) {
-    event.preventDefault();  // Cegah submit default dulu biar kita cek datanya
 
-    // Ambil data form
-    let judul = document.getElementById("judul").value;
-    let isi = document.getElementById("isi").value;
-    let tanggal = document.getElementById("tanggal").value;
-    let lokasi = document.getElementById("lokasi").value;
-    let instansi = document.getElementById("instansi").value;
-    let kategori = document.getElementById("kategori").value;
-    let privasi = document.querySelector('input[name="privasi"]:checked');
-
-    // // Cek data form (simple validasi)
-    // if (!judul || !isi || !tanggal || !lokasi || !instansi || !kategori || !privasi) {
-    //     alert("Semua field harus diisi!");
-    //     return;
-    // }
-
-    // Kirim data via fetch ke PHP
-    fetch("proses_laporan.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: judul=${judul}&isi=${isi}&tanggal=${tanggal}&lokasi=${lokasi}&instansi=${instansi}&kategori=${kategori}&privasi=${privasi.value}
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert(data);
-        window.location.href = "Lapor.php";  // Redirect kalau sukses ke sana a
-    })
-    .catch(error => alert("Terjadi kesalahan: " + error));
-});
 </script>
 <script src="js/slide.js"></script>
 

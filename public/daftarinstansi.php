@@ -48,6 +48,7 @@ $hasil = mysqli_query($conn, $query);
                                 <option value="Aktif" <?php if ($data['status'] == 'Aktif') echo 'selected'; ?>>Aktif</option>
                                 <option value="Nonaktif" <?php if ($data['status'] == 'Nonaktif') echo 'selected'; ?>>Nonaktif</option>
                             </select>
+                        </td>
                         <td class="px-6 py-4 flex space-x-2">
                             <a href="ubahinstansi.php?id=<?php echo $data['id_instansi']; ?>" 
                             class="bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-yellow-600 transition-all">

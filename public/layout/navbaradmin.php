@@ -22,13 +22,18 @@ $nama_admin = $admin["nama"] ?? "Admin"; // Gunakan "Admin" jika tidak ditemukan
         </h2>
         <ul>
             <li>
+                <a href="profiluser.php" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:text-orange-400 hover:bg-gray-700 transition-all">
+                    <i class="fa-solid fa-users"></i></i> Kelola User
+                </a>
+            </li>
+            <li>
                 <a href="profiladmin.php" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:text-orange-400 hover:bg-gray-700 transition-all">
-                    <i class="fa-regular fa-user "></i> Kelola Admin
+                    <i class="fa-solid fa-user"></i></i> Kelola Admin
                 </a>
             </li>
             <li>
                 <a href="daftarlaporin.php" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:text-orange-400 hover:bg-gray-700 transition-all">
-                    <i class="fa-regular fa-pen-to-square"></i> Daftar Laporin
+                    <i class="fa-solid fa-pen-to-square"></i> Daftar Laporin
                 </a>
             </li>
             <li>

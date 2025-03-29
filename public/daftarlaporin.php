@@ -62,9 +62,9 @@ $hasil = mysqli_query($conn, $query);
                     <td class="px-4 py-4"><?php echo htmlspecialchars($data['kategori']); ?></td>
                     <td class="px-4 py-4">
                         <?php if (!empty($data['lampiran'])): ?>
-                            <a href="download_lampiran.php?id=<?php echo $data['id_laporan']; ?>" 
+                            <a href="lihat_lampiran.php?id=<?php echo $data['id_laporan']; ?>" 
                             target="_blank" 
-                            class="text-blue-500">
+                            class="text-blue-700 underline">
                                 Lihat Lampiran
                             </a>
                         <?php else: ?>

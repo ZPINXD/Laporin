@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +13,50 @@ session_start();
 <?php include "layout/navbar.html"?>
 
 <!-- LOGIN -->
+<div id="lupapassform" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+                <h2 class="text-lg font-semibold mb-4 text-red-600">Ubah Password</h2>
+                <form action="lupapassword.php" method="POST">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold">Email</label>
+                        <input type="text" name="email" class="w-full p-2 border border-gray-300 rounded" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold">Password baru</label>
+                        <input type="password" id="pass1" name="pass_new" class="w-full p-2 border border-gray-300 rounded" required>
+                    </div>
 
-<div class="flex justify-center items-center h-screen ">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold">Konfirmasi password</label>
+                        <input type="password" id="pass2" name="pass_conf" class="w-full p-2 border border-gray-300 rounded" required>
+                        <input type="checkbox" onclick="togglePassword2()"> Show password
+                     </div>
+               
+                    <div class="flex justify-end gap-2">
+                        <button type="button" onclick="closeForm()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Batal</button>
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-500">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            <script>
+            function togglePassword2() {
+            var pass1 = document.getElementById("pass1");
+            var pass2 = document.getElementById("pass2");
+            
+            if (pass1.type === "password" && pass2.type === "password") {
+                pass1.type = "text";
+                pass2.type = "text";
+            } else {
+                pass1.type = "password";
+                pass2.type = "password";
+            }
+        }
+        </script>
+    </div>
+        
+    <div class="flex justify-center items-center h-screen ">
         <div class="w-96 p-6 shadow-lg bg-white rounded-md">
-            <h1 class="text-3xl block text-center font-semibold"><i class="fa-solid fa-user"></i> Login</h1>
+            <h1 class="text-3xl block text-center font-semibold"><i class="fa-solid fa-user px-2"></i>Masuk</h1>
             <hr class="mt-3">
             <form action="proseslogin.php" method="POST">
             <div class="mt-3">
@@ -53,6 +91,10 @@ session_start();
             ?>
                 <button type="submit" class="border-2 bg-orange-600 hover:bg-orange-700 text-white py-1 w-full rounded-md  font-semibold"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login</button>
             </div>
+
+            <div class="mt-2">
+                    <a onclick="forgotpass()" class="underline italic font-semibold  cursor-pointer">Lupa password?</a>
+                </div>
             </form>
         </div>
     </div>
@@ -60,5 +102,15 @@ session_start();
     <!-- Footer -->
     
 </body>
+
+<script>
+        function forgotpass() {
+            document.getElementById("lupapassform").classList.remove("hidden");
+        }
+
+        function closeForm() {
+            document.getElementById("lupapassform").classList.add("hidden");
+        }
+</script>
 <?php include "layout/footer.html"?>
 </html>
