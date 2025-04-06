@@ -21,14 +21,19 @@ $nama_admin = $admin["nama"] ?? "Admin"; // Gunakan "Admin" jika tidak ditemukan
         Admin <span class="text-orange-500"><?= htmlspecialchars($nama_admin) ?></span>
         </h2>
         <ul>
+             <li>
+                <a href="dashboard.php" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:text-orange-400 hover:bg-gray-700 transition-all">
+                <i class="fa-solid fa-chart-simple"></i> Dashboard
+                </a>
+            </li>
             <li>
                 <a href="profiluser.php" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:text-orange-400 hover:bg-gray-700 transition-all">
-                    <i class="fa-solid fa-users"></i></i> Kelola User
+                    <i class="fa-solid fa-users"></i> Kelola User
                 </a>
             </li>
             <li>
                 <a href="profiladmin.php" class="flex items-center gap-3 py-3 px-4 rounded-lg hover:text-orange-400 hover:bg-gray-700 transition-all">
-                    <i class="fa-solid fa-user"></i></i> Kelola Admin
+                    <i class="fa-solid fa-user"></i>Kelola Admin
                 </a>
             </li>
             <li>

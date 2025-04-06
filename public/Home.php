@@ -233,15 +233,15 @@
 
                     <div class="mb-4">
                             <label for="lampiran" class="block text-sm font-semibold text-gray-700">Upload Bukti Aduan</label>
-                            <input type="file" id="lampiran" name="lampiran" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
-                            <p class="text-red-500 text-sm mt-1 hidden" id="error-lampiran">File harus diunggah!</p>
+                            <input type="file" id="lampiran" name="lampiran" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                
                     </div>
 
                     <!-- Pilihan Anonim atau Rahasia -->
                     <div class="mb-4 flex items-center">
-                        <input type="radio" id="anonim" name="privasi" value="anonim" class="mr-2" required>
+                        <input type="radio" id="anonim" name="privasi" value="Anonim" class="mr-2" required>
                         <label for="anonim" class="text-sm">Anonymous</label>
-                        <input type="radio" id="publik" name="privasi" value="publik" class="ml-4 mr-2" required>
+                        <input type="radio" id="publik" name="privasi" value="Publik" class="ml-4 mr-2" required>
                         <label for="publik" class="text-sm">Publik</label>
                         <p class="text-red-500 text-sm mt-1 hidden" id="error-privacy">Pilih salah satu privasi!</p>
                     </div>

@@ -19,7 +19,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Menentukan nama yang ditampilkan berdasarkan privasi
-        $nama_pelapor = ($row['privasi'] == 'anonim') ? 'Anonim' : $row['username'];
+        $nama_pelapor = ($row['privasi'] == 'Anonim') ? 'Anonim' : $row['username'];
 
         // Menampilkan laporan dengan format yang diinginkan
         echo '<div class="bg-white shadow-md rounded-lg p-6 mb-10 mt-14 py-20">';

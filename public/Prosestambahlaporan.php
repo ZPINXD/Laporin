@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lokasi = $_POST['lokasi'];
     $instansi = $_POST['instansi'];
     $kategori = $_POST['kategori'];
-    $privasi = $_POST['privasi'] ?? 'publik'; 
+    $privasi = $_POST['privasi'] ?? 'Publik'; 
 
     // Proses upload file
     if (isset($_FILES['lampiran']) && $_FILES['lampiran']['error'] === UPLOAD_ERR_OK) {

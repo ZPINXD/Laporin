@@ -72,7 +72,7 @@ $hasil = mysqli_query($conn, $query);
                         <?php endif; ?>
                     </td>
                     <td class="px-4 py-4">
-                        <?php echo ($data['privasi'] == 'publik') ? 
+                        <?php echo ($data['privasi'] == 'Publik') ? 
                             '<span class="text-green-600 font-semibold">Publik</span>' : 
                             '<span class="text-red-600 font-semibold">Anonymous</span>'; 
                         ?>
