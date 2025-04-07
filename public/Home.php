@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">`
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Home</title>
+	<title>Beranda</title>
 	<link rel="stylesheet" href="css/style.css">
     
 
@@ -225,8 +225,8 @@
                         <label for="kategori" class="block text-sm font-semibold text-gray-700">Pilih Kategori Laporan Anda</label>
                         <select id="kategori" name="kategori" class="w-full mt-2 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary" required>
                             <option value="" disabled selected>Pilih kategori</option>
-                            <option value="bencana">Bencana Alam</option>
-                            <option value="demo">Aduan</option>
+                            <option value="Bencana Alam">Bencana Alam</option>
+                            <option value="Aduan">Aduan</option>
                         </select>
                     </div>
 
