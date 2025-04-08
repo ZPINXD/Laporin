@@ -61,7 +61,16 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
             </p>
             <p class="text-gray-600 mt-2">
             Dengan adanya Lapor.in, diharapkan setiap masalah yang dilaporkan oleh masyarakat dapat segera mendapatkan tanggapan dan penyelesaian yang tepat, sehingga tercipta lingkungan yang lebih baik, adil, dan nyaman bagi semua.</p>
+            <div class="p-6 w-full max-w-3xl mx-auto ">
+                <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
+                <div class="relative flex justify-center items-center">
+                    <div class="w-full md:w-4/5 lg:w-3/4">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
+        
         <button id="readMoreBtn" class="mt-6 px-6 py-3 border-none bg-orange-700 text-white rounded-lg hover:bg-orange-600">Lebih banyak</button>
         
         <script>document.getElementById("readMoreBtn").addEventListener("click", function() {
@@ -78,14 +87,13 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
         </script>
     </section>
      
-     <!-- Grafik -->
-<div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
 
-<!-- Grafik Bulanan -->
-  <div class="bg-white p-6 rounded-xl shadow-md">
-      <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
-      <canvas id="lineChart"></canvas>
-  </div>
+
+
+  <!-- Grafik Bulanan -->
+  
+
+
 <script>
 // Grafik Bulanan
   const bulananCtx = document.getElementById('lineChart').getContext('2d');
@@ -130,7 +138,7 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
 </script>
 
 <!-- Why Choose Us -->
-<section class="bg-gray-100 py-16">
+<section class="bg-gray-100 py-16 mt-10">
     <div class="max-w-4xl mx-auto text-center px-6">
         <h2 class="text-2xl font-bold mb-6">Mengapa harus Lapor.in?</h2>
         <p class="text-gray-700 mb-10">Kami menyediakan platform yang transparan, cepat, dan mudah digunakan untuk melaporkan berbagai kejadian penting, memastikan setiap laporan mendapat perhatian dari pihak yang berwenang.</p>
@@ -151,42 +159,6 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
         </div>
     </div>
 </section>
-
-
-  <!-- Footer -->
- <footer class="bg-gray-900 text-white py-10 mt-10">
-        <div class="container mx-auto text-center">
-            <!-- Judul -->
-            <h2 class="text-xl font-semibold">INSTANSI TERHUBUNG</h2>
-    
-            <!-- Logo Instansi -->
-            <div class="flex justify-center gap-6 mt-6 flex-wrap">
-                <a href="https://www.menpan.go.id/" target="_blank">
-                    <img src="Assets/Logo_PANRB_Default.png" alt="PANRB" class="h-12 transition-transform duration-300 hover:scale-110">
-                </a>
-                <a href="https://www.komdigi.id/" target="_blank">
-                    <img src="Assets/KOMDIGI Logo 2024.webp" alt="Komdigi" class="h-12 transition-transform duration-300 hover:scale-110">
-                </a>
-                <a href="https://www.ombudsman.go.id/" target="_blank">
-                    <img src="Assets/ombudsman.png" alt="Ombudsman RI" class="h-12 transition-transform duration-300 hover:scale-110">
-                </a>
-            </div>
-            
-    
-            <!-- Navigasi dan Hak Cipta -->
-            <div class="mt-8">
-                <ul class="flex justify-center gap-4 text-sm text-gray-400">
-                    <li><a href="#" class="hover:text-green-600">Privacy</a></li>
-                    <li><a href="#" class="hover:text-green-600">Ketentuan Layanan</a></li>
-                    <li><a href="#" class="hover:text-green-600">Tentang Kami</a></li>
-                    <li><a href="#" class="hover:text-green-600">Hubungi Kami</a></li>
-                </ul>
-                <p class="text-xs text-gray-500 mt-4">&copy; 2025 Kantor Staf Presiden. Hak cipta dilindungi Undang-Undang.</p>
-            </div>
-        </div>
-    </footer>
-
-
-
+<?php include "layout/footer.html"?>
 </body>
 </html>
