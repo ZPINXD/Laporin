@@ -28,6 +28,16 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
     $labels[] = $row['bulan'];
     $data[] = $row['jumlah'];
 }
+
+// Data untuk Pie Chart Kategori
+$kategoriData = [];
+$queryKategori = mysqli_query($conn, "SELECT kategori, COUNT(*) as jumlah FROM laporan GROUP BY kategori");
+while ($row = mysqli_fetch_assoc($queryKategori)) {
+    $kategoriData[$row['kategori']] = $row['jumlah'];
+}
+$kategoriLabels = json_encode(array_keys($kategoriData));
+$kategoriCounts = json_encode(array_values($kategoriData));
+
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +87,15 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
         <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
         <canvas id="lineChart"></canvas>
     </div>
+
+    <!-- Grafik Kategori (Pie Chart) -->
+    <div class="mt-10">
+        <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-bold text-center mb-4">Distribusi Kategori Laporan</h2>
+        <canvas id="kategoriChart"></canvas>
+    </div>
+</div>
+
 </div>
 </div>
 
@@ -173,6 +192,43 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
             }
         }
     });
+
+
+// Grafik Pie Kategori
+const kategoriCtx = document.getElementById('kategoriChart').getContext('2d');
+new Chart(kategoriCtx, {
+    type: 'pie',
+    data: {
+        labels: <?= $kategoriLabels ?>,
+        datasets: [{
+            data: <?= $kategoriCounts ?>,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)'
+            ],
+            borderColor: 'rgba(255, 255, 255, 1)',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {
+                        size: 14
+                    }
+                }
+            }
+        }
+    }
+});
+
 </script>
 
 
