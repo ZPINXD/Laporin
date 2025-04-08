@@ -29,14 +29,19 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
     $data[] = $row['jumlah'];
 }
 
-// Data untuk Pie Chart Kategori
-$kategoriData = [];
-$queryKategori = mysqli_query($conn, "SELECT kategori, COUNT(*) as jumlah FROM laporan GROUP BY kategori");
-while ($row = mysqli_fetch_assoc($queryKategori)) {
-    $kategoriData[$row['kategori']] = $row['jumlah'];
+// Data untuk Pie Chart berdasarkan Instansi
+$instansiData = [];
+$queryInstansi = mysqli_query($conn, "SELECT i.nama_instansi, COUNT(l.id_laporan) as jumlah 
+    FROM laporan l 
+    JOIN instansi i ON l.instansi = i.id_instansi 
+    GROUP BY l.instansi");
+
+while ($row = mysqli_fetch_assoc($queryInstansi)) {
+    $instansiData[$row['nama_instansi']] = $row['jumlah'];
 }
-$kategoriLabels = json_encode(array_keys($kategoriData));
-$kategoriCounts = json_encode(array_values($kategoriData));
+$instansiLabels = json_encode(array_keys($instansiData));
+$instansiCounts = json_encode(array_values($instansiData));
+
 
 ?>
 
@@ -74,7 +79,7 @@ $kategoriCounts = json_encode(array_values($kategoriData));
         </a>
     </div>
 
-   <!-- Grafik -->
+  <!-- Grafik -->
 <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
     <!-- Grafik Status -->
     <div class="bg-white p-6 rounded-xl shadow-md">
@@ -90,16 +95,17 @@ $kategoriCounts = json_encode(array_values($kategoriData));
         <canvas id="lineChart" class="w-full h-full"></canvas>
     </div>
 
-    <!-- Grafik Kategori (Pie Chart) -->
-    <div class="mt-10">
-        <div class="bg-white p-6 rounded-xl shadow-md">
-        <h2 class="text-xl font-bold text-center mb-4">Distribusi Kategori Laporan</h2>
-        <canvas id="kategoriChart"></canvas>
+
+</div>
+
+</div>
+<!-- Grafik Pie Instansi -->
+<div class="mt-10 flex justify-center">
+    <div class="bg-white p-6 rounded-xl shadow-md w-full sm:w-2/3 md:w-2/3">
+        <h2 class="text-xl font-bold text-center mb-4">Distribusi Laporan per Instansi</h2>
+        <canvas id="instansiChart" class="mx-auto max-w-[500px]"></canvas>
     </div>
 </div>
-
-</div>
-
 
 <script>
     // Grafik Status
@@ -196,21 +202,23 @@ $kategoriCounts = json_encode(array_values($kategoriData));
     });
 
 
-// Grafik Pie Kategori
-const kategoriCtx = document.getElementById('kategoriChart').getContext('2d');
-new Chart(kategoriCtx, {
+// Grafik Pie Instansi
+const instansiCtx = document.getElementById('instansiChart').getContext('2d');
+new Chart(instansiCtx, {
     type: 'pie',
     data: {
-        labels: <?= $kategoriLabels ?>,
+        labels: <?= $instansiLabels ?>,
         datasets: [{
-            data: <?= $kategoriCounts ?>,
+            data: <?= $instansiCounts ?>,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.7)',
                 'rgba(54, 162, 235, 0.7)',
                 'rgba(255, 206, 86, 0.7)',
                 'rgba(75, 192, 192, 0.7)',
                 'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)'
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(34, 197, 94, 0.7)',
+                'rgba(245, 158, 11, 0.7)'
             ],
             borderColor: 'rgba(255, 255, 255, 1)',
             borderWidth: 2
@@ -230,6 +238,7 @@ new Chart(kategoriCtx, {
         }
     }
 });
+
 
 </script>
 
