@@ -64,64 +64,29 @@ session_start();
     </section>
     
     
-
-</section>
-    <!-- Why Choose Us -->
-    <section class="bg-gray-100 py-10">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-            <div>
-                <h3 class="text-xl font-bold">Mengapa harus Lapor.in?</h3>
-                <p class="text-gray-600 mt-2">Kami menyediakan platform yang transparan, cepat, dan mudah digunakan untuk melaporkan berbagai kejadian penting, memastikan setiap laporan mendapat perhatian dari pihak yang berwenang.</p>
+<!-- Why Choose Us -->
+<section class="bg-gray-100 py-16">
+    <div class="max-w-4xl mx-auto text-center px-6">
+        <h2 class="text-2xl font-bold mb-6">Mengapa harus Lapor.in?</h2>
+        <p class="text-gray-700 mb-10">Kami menyediakan platform yang transparan, cepat, dan mudah digunakan untuk melaporkan berbagai kejadian penting, memastikan setiap laporan mendapat perhatian dari pihak yang berwenang.</p>
+        
+        <div class="grid gap-6 md:grid-cols-3 text-left">
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+                <h3 class="font-semibold text-lg mb-2 text-orange-700">Pelaporan Cepat</h3>
+                <p class="text-gray-600 text-sm">Langsung lapor dengan cepat tanpa proses rumit.</p>
             </div>
-            <div>
-                <h3 class="text-xl font-bold">Solusi kami</h3>
-                <div class="bg-white p-4 shadow rounded mt-2">Pelaporan Cepat </div>
-                <div class="bg-white p-4 shadow rounded mt-2">Distribusi Tepat Sasaran</div>
-                <div class="bg-white p-4 shadow rounded mt-2">Pantauan dan Tindak Lanjut</div>
-
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+                <h3 class="font-semibold text-lg mb-2 text-orange-700">Distribusi Tepat Sasaran</h3>
+                <p class="text-gray-600 text-sm">Laporan langsung diteruskan ke pihak berwenang.</p>
             </div>
-
-            <div>
-                <h3 class="text-xl font-bold">Data Lapor.in</h3>
-                    <!-- Bencana Alam -->
-                    <div class="mt-2">
-                        <p class="text-sm font-semibold">Bencana alam</p>
-                        <div class="w-full bg-gray-300 h-2 rounded relative">
-                            <div class="bg-red-500 h-2 rounded relative group" style="width: 70%;">
-                                <span class="absolute -top-6 left-1/2 transform -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
-                                    70%
-                                </span>
-                            </div>
-                        </div>
-                       </div>
-                
-                    <!-- Ketidakadilan -->
-                    <div class="mt-2">
-                        <p class="text-sm font-semibold">Ketidakadilan</p>
-                        <div class="w-full bg-gray-300 h-2 rounded relative">
-                            <div class="bg-green-500 h-2 rounded relative group" style="width: 80%;">
-                                <span class="absolute -top-6 left-1/2 transform -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
-                                    80%
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Kerusakan Infrastruktur -->
-                    <div class="mt-2">
-                        <p class="text-sm font-semibold">Kerusakan infrastruktur</p>
-                        <div class="w-full bg-gray-300 h-2 rounded relative">
-                            <div class="bg-blue-500 h-2 rounded relative group" style="width: 60%;">
-                                <span class="absolute -top-6 left-1/2 transform -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
-                                    60%
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+                <h3 class="font-semibold text-lg mb-2 text-orange-700">Pantauan dan Tindak Lanjut</h3>
+                <p class="text-gray-600 text-sm">Tiap laporan dimonitor dan ditindaklanjuti.</p>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     
     <div class="flex justify-center items-center mt-10">
