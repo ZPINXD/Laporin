@@ -79,33 +79,33 @@ $instansiCounts = json_encode(array_values($instansiData));
         </a>
     </div>
 
-  <!-- Grafik -->
-<div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-    <!-- Grafik Status -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
-        <h2 class="text-xl font-bold text-center mb-4">Grafik Status Laporan</h2>
-        <canvas id="statusChart"></canvas>
+    <!-- Grafik -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Grafik Status -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-xl font-bold text-center mb-4">Grafik Status Laporan</h2>
+            <canvas id="statusChart"></canvas>
+        </div>
+        <!-- Grafik Bulanan -->
+        <div class="bg-white p-6 w-full max-w-3xl mx-auto rounded-xl shadow-md">
+            <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
+            <div class="relative h-64">
+                <canvas id="lineChart" class="w-full h-full"></canvas>
+            </div>
+        </div>
     </div>
-
-    <!-- Grafik Bulanan -->
-    <!-- Grafik Bulanan -->
-<div class="bg-white p-6 w-full max-w-3xl mx-auto rounded-xl shadow-md">
-    <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
-    <div class="relative h-64">
-        <canvas id="lineChart" class="w-full h-full"></canvas>
-    </div>
-
-
-</div>
-
-</div>
-<!-- Grafik Pie Instansi -->
-<div class="mt-10 flex justify-center">
-    <div class="bg-white p-6 rounded-xl shadow-md w-full sm:w-2/3 md:w-2/3">
-        <h2 class="text-xl font-bold text-center mb-4">Distribusi Laporan per Instansi</h2>
-        <canvas id="instansiChart" class="mx-auto max-w-[500px]"></canvas>
+    <!-- Grafik Pie Instansi -->
+    <div class="mt-10 flex justify-center">
+        <div class="bg-white p-6 rounded-xl shadow-md w-full  mx-auto">
+            <h2 class="text-xl font-bold text-center mb-4">Distribusi Laporan per Instansi</h2>
+            <div class="relative flex justify-center">
+            <canvas id="instansiChart" class="w-full max-w-[350px] h-auto"></canvas>
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <script>
     // Grafik Status
@@ -226,18 +226,26 @@ new Chart(instansiCtx, {
     },
     options: {
         responsive: true,
+        maintainAspectRatio: false, // Agar bisa fleksibel terhadap ukuran container
         plugins: {
             legend: {
                 position: 'bottom',
                 labels: {
                     font: {
-                        size: 14
-                    }
+                        size: window.innerWidth < 640 ? 10 : 14 // Responsive font size
+                    },
+                    padding: 12
+                }
+            },
+            tooltip: {
+                bodyFont: {
+                    size: window.innerWidth < 640 ? 10 : 14 // Tooltip size juga disesuaikan
                 }
             }
         }
     }
 });
+
 
 
 </script>

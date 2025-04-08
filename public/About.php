@@ -87,13 +87,6 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
         </script>
     </section>
      
-
-
-
- 
-  
-
-
 <script>
 // Grafik Bulanan
   const bulananCtx = document.getElementById('lineChart').getContext('2d');
