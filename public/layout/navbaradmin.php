@@ -15,7 +15,8 @@ $nama_admin = $admin["nama"] ?? "Admin"; // Gunakan "Admin" jika tidak ditemukan
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
  
- <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-gray-900 text-white p-5 transition-transform transform -translate-x-64 md:translate-x-0 shadow-lg flex flex-col justify-between">
+<div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-gray-900 text-white p-5 transition-transform transform -translate-x-64 md:translate-x-0 shadow-lg flex flex-col justify-between z-50">
+
     <div>
         <h2 class="text-xl font-bold mb-6 mt-10 text-white">
         Admin <span class="text-orange-500"><?= htmlspecialchars($nama_admin) ?></span>

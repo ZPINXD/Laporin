@@ -22,7 +22,7 @@ $result = mysqli_query($conn, $query);
 <body class="bg-gray-100">
     <div class="relative w-full h-[275px] overflow-hidden ">
         <?php include "layout/navbar.html"?>
-        <section class="relative bg-cover bg-center text-white py-10 mt-16 text-center flex " style="background-image: url('Assets/Untitled\ \(2600\ x\ 1000\ px\).png');">
+        <section class="relative bg-cover bg-center text-white py-10 mt-16 text-center flex " style="background-image: url('Assets/bg about.png');">
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>   
             <div class="relative px-10 flex items-center gap-4">
                 <img src="profile-pic.jpg" alt="Profile Picture" class="w-24 h-24 rounded-full border-2 border-white">
