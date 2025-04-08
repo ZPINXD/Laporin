@@ -1,6 +1,20 @@
 <?php
 include_once("database.php");
 session_start();
+
+// Data untuk Grafik Bulanan
+$labels = [];
+$data = [];
+$queryBulanan = "SELECT DATE_FORMAT(tanggal, '%M') AS bulan, COUNT(*) AS jumlah 
+          FROM laporan 
+          WHERE tanggal >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+          GROUP BY MONTH(tanggal)
+          ORDER BY MONTH(tanggal)";
+$resultBulanan = mysqli_query($conn, $queryBulanan);
+while ($row = mysqli_fetch_assoc($resultBulanan)) {
+    $labels[] = $row['bulan'];
+    $data[] = $row['jumlah'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,94 +78,55 @@ session_start();
         </script>
     </section>
      
-    <div class="flex justify-center items-center mt-10">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md text-center">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">GRAFIK LAPORAN</h2>
-        <div class="w-full h-80 mx-auto">
-            <canvas id="grafik"></canvas>
-        </div>
-    </div>
-</div>
+     <!-- Grafik -->
+<div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
 
-<?php
-// Hitung jumlah laporan per kategori (membuat case-insensitive)
-function getJumlahLaporan($conn, $kategori) {
-    $query = mysqli_query($conn, "SELECT * FROM laporan WHERE LOWER(kategori) = LOWER('$kategori')");
-    return mysqli_num_rows($query);
-}
-
-$jumlah_bencana = getJumlahLaporan($conn, "Bencana Alam");
-$jumlah_demo = getJumlahLaporan($conn, "Demo");
-$jumlah_kerusakan = getJumlahLaporan($conn, "Kerusakan");
-?>
-
+<!-- Grafik Bulanan -->
+  <div class="bg-white p-6 rounded-xl shadow-md">
+      <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
+      <canvas id="lineChart"></canvas>
+  </div>
 <script>
-    var ctx = document.getElementById("grafik").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["Bencana Alam", "Demo", "Kerusakan"],
-            datasets: [
-                {
-                    label: 'Bencana Alam',
-                    data: [<?php echo $jumlah_bencana; ?>, 0, 0],
-                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 2
-                },
-                {
-                    label: 'Demo',
-                    data: [0, <?php echo $jumlah_demo; ?>, 0],
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 2
-                },
-                {
-                    label: 'Kerusakan',
-                    data: [0, 0, <?php echo $jumlah_kerusakan; ?>],
-                    backgroundColor: 'rgba(255, 206, 86, 0.7)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 2
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            aspectRatio: 2, // Menghindari grafik terlalu tinggi
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: Math.max(<?php echo $jumlah_bencana; ?>, <?php echo $jumlah_demo; ?>, <?php echo $jumlah_kerusakan; ?>) + 5,
-                    ticks: {
-                        stepSize: 1
-                    }
-                },
-                x: {
-                    stacked: false, // Supaya label tidak menempel
-                    ticks: {
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            },
-            barPercentage: 0.6, // Mengurangi lebar batang agar ada jarak
-            categoryPercentage: 0.8, // Memberi ruang antar kategori
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        color: '#333',
-                        font: {
-                            size: 14
-                        }
-                    }
-                }
-            }
-        }
-    });
+// Grafik Bulanan
+  const bulananCtx = document.getElementById('lineChart').getContext('2d');
+  new Chart(bulananCtx, {
+      type: 'line',
+      data: {
+          labels: <?= json_encode($labels) ?>,
+          datasets: [{
+              label: 'Jumlah Laporan',
+              data: <?= json_encode($data) ?>,
+              borderColor: 'rgba(12, 119, 12, 1)',
+              backgroundColor: 'rgba(12, 119, 12, 0.2)',
+              fill: true,
+              tension: 0.3
+          }]
+      },
+      options: {
+          responsive: true,
+          plugins: {
+              legend: { display: false }
+          },
+          scales: {
+              x: {
+                  ticks: {
+                      font: {
+                          size: 16,
+                          weight: 'bold'
+                      }
+                  }
+              },
+              y: {
+                  beginAtZero: true,
+                  ticks: {
+                      font: {
+                          size: 14
+                      }
+                  }
+              }
+          }
+      }
+  });
 </script>
 
 <!-- Why Choose Us -->
