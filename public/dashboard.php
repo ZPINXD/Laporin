@@ -83,9 +83,11 @@ $kategoriCounts = json_encode(array_values($kategoriData));
     </div>
 
     <!-- Grafik Bulanan -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
-        <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
-        <canvas id="lineChart"></canvas>
+    <!-- Grafik Bulanan -->
+<div class="bg-white p-6 w-full max-w-3xl mx-auto rounded-xl shadow-md">
+    <h2 class="text-xl font-bold text-center mb-4">Tren Jumlah Laporan 3 Bulan Terakhir</h2>
+    <div class="relative h-64">
+        <canvas id="lineChart" class="w-full h-full"></canvas>
     </div>
 
     <!-- Grafik Kategori (Pie Chart) -->
@@ -97,7 +99,7 @@ $kategoriCounts = json_encode(array_values($kategoriData));
 </div>
 
 </div>
-</div>
+
 
 <script>
     // Grafik Status
