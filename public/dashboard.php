@@ -42,7 +42,7 @@ while ($row = mysqli_fetch_assoc($resultBulanan)) {
 <body>
 <?php include "layout/navbaradmin.php"; ?>
 
-<div class="flex-1 p-6 transition-all md:ml-64">
+<div class="flex-1 p-6 transition-all md:ml-64 relative z-10">
     <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6"> 
         <a href="daftarlaporin.php" class="hover:scale-105 transform transition duration-300 block">
             <div class="p-6 bg-gradient-to-tr from-green-400 to-green-600 text-white shadow-xl rounded-xl text-center">

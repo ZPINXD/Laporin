@@ -19,9 +19,10 @@ session_start();
     
     
     <!-- Hero Section -->
-<section class="relative bg-cover bg-center text-white py-10 mt-16 text-center flex items-center justify-center" style="background-image: url('Assets/Untitled\ \(2600\ x\ 1000\ px\).png');">
+    <section   class="relative bg-cover bg-center text-white py-10 mt-16 text-center flex items-center justify-center"
+    style="background-image: url('Assets/2.png');">
     <!-- Overlay untuk meningkatkan keterbacaan teks -->
-    <div class="absolute inset-0 bg-black bg-opacity-50"></div> 
+    <div class="absolute inset-0 bg-black bg-opacity-10"></div> 
     <!-- Teks -->
     <div class="relative z-10">
         <h1 class="text-3xl font-bold">Apa itu Lapor.in?</h1>
