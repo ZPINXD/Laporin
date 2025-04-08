@@ -62,33 +62,7 @@ session_start();
         });
         </script>
     </section>
-    
-    
-<!-- Why Choose Us -->
-<section class="bg-gray-100 py-16">
-    <div class="max-w-4xl mx-auto text-center px-6">
-        <h2 class="text-2xl font-bold mb-6">Mengapa harus Lapor.in?</h2>
-        <p class="text-gray-700 mb-10">Kami menyediakan platform yang transparan, cepat, dan mudah digunakan untuk melaporkan berbagai kejadian penting, memastikan setiap laporan mendapat perhatian dari pihak yang berwenang.</p>
-        
-        <div class="grid gap-6 md:grid-cols-3 text-left">
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
-                <h3 class="font-semibold text-lg mb-2 text-orange-700">Pelaporan Cepat</h3>
-                <p class="text-gray-600 text-sm">Langsung lapor dengan cepat tanpa proses rumit.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
-                <h3 class="font-semibold text-lg mb-2 text-orange-700">Distribusi Tepat Sasaran</h3>
-                <p class="text-gray-600 text-sm">Laporan langsung diteruskan ke pihak berwenang.</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
-                <h3 class="font-semibold text-lg mb-2 text-orange-700">Pantauan dan Tindak Lanjut</h3>
-                <p class="text-gray-600 text-sm">Tiap laporan dimonitor dan ditindaklanjuti.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    
+     
     <div class="flex justify-center items-center mt-10">
     <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md text-center">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">GRAFIK LAPORAN</h2>
@@ -179,13 +153,29 @@ $jumlah_kerusakan = getJumlahLaporan($conn, "Kerusakan");
     });
 </script>
 
+<!-- Why Choose Us -->
+<section class="bg-gray-100 py-16">
+    <div class="max-w-4xl mx-auto text-center px-6">
+        <h2 class="text-2xl font-bold mb-6">Mengapa harus Lapor.in?</h2>
+        <p class="text-gray-700 mb-10">Kami menyediakan platform yang transparan, cepat, dan mudah digunakan untuk melaporkan berbagai kejadian penting, memastikan setiap laporan mendapat perhatian dari pihak yang berwenang.</p>
+        
+        <div class="grid gap-6 md:grid-cols-3 text-left">
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+                <h3 class="font-semibold text-lg mb-2 text-orange-700">Pelaporan Cepat</h3>
+                <p class="text-gray-600 text-sm">Langsung lapor dengan cepat tanpa proses rumit.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+                <h3 class="font-semibold text-lg mb-2 text-orange-700">Distribusi Tepat Sasaran</h3>
+                <p class="text-gray-600 text-sm">Laporan langsung diteruskan ke pihak berwenang.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+                <h3 class="font-semibold text-lg mb-2 text-orange-700">Pantauan dan Tindak Lanjut</h3>
+                <p class="text-gray-600 text-sm">Tiap laporan dimonitor dan ditindaklanjuti.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-
-
-
-
-
-    
 
   <!-- Footer -->
  <footer class="bg-gray-900 text-white py-10 mt-10">
