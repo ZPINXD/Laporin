@@ -118,16 +118,16 @@ $instansiCounts = json_encode(array_values($instansiData));
                 label: 'Jumlah Laporan',
                 data: <?= $statusCounts ?>,
                 backgroundColor: [
-                    'rgba(34, 197, 94, 0.7)',
-                    'rgba(250, 204, 21, 0.7)',
                     'rgba(239, 68, 68, 0.7)',
-                    'rgba(59, 130, 246, 0.7)'
+                    'rgba(250, 204, 21, 0.7)',
+                     'rgba(59, 130, 246, 0.7)',
+                     'rgba(34, 197, 94, 0.7)'
                 ],
                 borderColor: [
-                    'rgba(34, 197, 94, 1)',
-                    'rgba(250, 204, 21, 1)',
                     'rgba(239, 68, 68, 1)',
-                    'rgba(59, 130, 246, 1)'
+                    'rgba(250, 204, 21, 1)',
+                     'rgba(59, 130, 246, 1)',
+                     'rgba(34, 197, 94, 1)'
                 ],
                 borderWidth: 1,
                 borderRadius: 8
