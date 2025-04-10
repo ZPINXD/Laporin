@@ -2,21 +2,26 @@
 session_start();
 include 'database.php';
 
-$query = "SELECT * FROM donasi ORDER BY tanggal DESC";
+$query = "SELECT d.nama, d.jumlah, d.pesan, d.tanggal, l.judul
+          FROM donasi d 
+          JOIN laporan l ON d.id_laporan = l.id_laporan 
+          ORDER BY d.tanggal DESC";
+
 $result = $conn->query($query);
 if (!$result) {
     die("Query error: " . $conn->error);
 }
+
 // Fungsi export ke CSV
 if (isset($_GET['export'])) {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename=riwayat_donasi.csv');
     $output = fopen('php://output', 'w');
-    fputcsv($output, array('No', 'Nama', 'Email', 'Jumlah Donasi', 'Pesan', 'Tanggal Donasi'));
+    fputcsv($output, array('No', 'Nama', 'Judul Laporan', 'Jumlah Donasi', 'Pesan', 'Tanggal Donasi'));
     $no = 1;
     while ($data = mysqli_fetch_assoc($result)) {
-        fputcsv($output, array($no++, $data['nama'], $data['email'], $data['jumlah'], $data['pesan'], $data['tanggal']));
-    }
+        fputcsv($output, array($no++, $data['nama'], $data['judul'], $data['jumlah'], $data['pesan'], $data['tanggal']));
+    }    
     fclose($output);
     exit;
 }
@@ -34,28 +39,31 @@ if (isset($_GET['export'])) {
 </head>
 <body class="bg-gray-100 min-h-screen items-center py-10">
 <?php include "layout/navbar.html"; ?>
-
     <h1 class="text-3xl font-bold text-center text-gray-800 mt-10 mb-8">Riwayat Donasi</h1>
-    
+    <?php
+    if (isset($_GET['id_laporan'])) {
+    echo "GET id_laporan: " . htmlspecialchars($_GET['id_laporan']) . "<br>";
+}
+?>
     <div class="w-full max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-md">
         <table id="donasiTable" class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-100">
-        <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Donatur</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nominal</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-        </tr>
-    </thead>
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Donatur</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Laporan</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nominal</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+            </tr>
+        </thead>
     <tbody>
     <?php if ($result->num_rows > 0): ?>
         <?php $no = 1; while($row = $result->fetch_assoc()): ?>
             <tr class="text-center border-b">
                 <td class="px-4 py-2"><?= $no++ ?></td>
                 <td class="px-4 py-2"><?= htmlspecialchars($row['nama']) ?></td>
-                <td class="px-4 py-2"><?= htmlspecialchars($row['email']) ?></td>
+                <td class="px-4 py-2"><?= htmlspecialchars($row['judul']) ?></td>
                 <td class="px-4 py-2"><?= number_format($row['jumlah'], 0, ',', '.') ?></td>
                 <td class="px-4 py-2"><?= htmlspecialchars($row['pesan']) ?></td>
                 <td class="px-4 py-2"><?= $row['tanggal'] ?></td>
@@ -102,9 +110,9 @@ if (isset($_GET['export'])) {
     }
 </script>
 
-<?php include "layout/footer.html"; ?>
-</body>
-</html>
 
+</body>
+<?php include "layout/footer.html"; ?>
+</html>
 
 <?php $conn->close(); ?>

@@ -104,7 +104,6 @@ $result = $conn->query($sql);
                         
                     <!-- Tombol Donasi -->
                     <?php if ($isBencanaAlam): ?>
-                        
                         <div class="mt-4">
                             <a href="form_donasi.php?id_laporan=<?php echo $row['id_laporan']; ?>" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded <?php echo $disabledClass; ?>" <?php echo !$isActiveDonasi ? 'disabled' : ''; ?>>
                                 Donasi Sekarang

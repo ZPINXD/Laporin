@@ -31,7 +31,6 @@ $laporan = $result->fetch_assoc();
 
 <section class="container mx-auto px-4 py-10">
     <h1 class="text-2xl font-bold text-teal-700 mb-6">Form Donasi untuk: <?php echo htmlspecialchars($laporan['judul']); ?></h1>
-
     <form action="proses_donasi.php" method="POST" class="bg-white p-6 rounded-lg shadow-md space-y-4 max-w-xl">
         <input type="hidden" name="id_laporan" value="<?php echo $laporan['id_laporan']; ?>">
 
