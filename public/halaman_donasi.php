@@ -1,16 +1,18 @@
 <?php
 session_start();
+$email = $_SESSION['email'];
 include 'database.php';
 
 $query = "SELECT d.nama, d.jumlah, d.pesan, d.tanggal, l.judul
           FROM donasi d 
           JOIN laporan l ON d.id_laporan = l.id_laporan 
+          WHERE d.email = ?
           ORDER BY d.tanggal DESC";
 
-$result = $conn->query($query);
-if (!$result) {
-    die("Query error: " . $conn->error);
-}
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Fungsi export ke CSV
 if (isset($_GET['export'])) {
@@ -28,7 +30,7 @@ if (isset($_GET['export'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -36,54 +38,55 @@ if (isset($_GET['export'])) {
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 </head>
-</head>
-<body class="bg-gray-100 min-h-screen items-center py-10">
+<body class="bg-gray-100 flex flex-col min-h-screen mt-10">
 <?php include "layout/navbar.html"; ?>
+
+<main class="flex-grow">
     <h1 class="text-3xl font-bold text-center text-gray-800 mt-10 mb-8">Riwayat Donasi</h1>
-    <?php
-    if (isset($_GET['id_laporan'])) {
-    echo "GET id_laporan: " . htmlspecialchars($_GET['id_laporan']) . "<br>";
-}
-?>
+
     <div class="w-full max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-md">
         <table id="donasiTable" class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Donatur</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Laporan</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nominal</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-            </tr>
-        </thead>
-    <tbody>
-    <?php if ($result->num_rows > 0): ?>
-        <?php $no = 1; while($row = $result->fetch_assoc()): ?>
-            <tr class="text-center border-b">
-                <td class="px-4 py-2"><?= $no++ ?></td>
-                <td class="px-4 py-2"><?= htmlspecialchars($row['nama']) ?></td>
-                <td class="px-4 py-2"><?= htmlspecialchars($row['judul']) ?></td>
-                <td class="px-4 py-2"><?= number_format($row['jumlah'], 0, ',', '.') ?></td>
-                <td class="px-4 py-2"><?= htmlspecialchars($row['pesan']) ?></td>
-                <td class="px-4 py-2"><?= $row['tanggal'] ?></td>
-            </tr>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <tr>
-            <td colspan="6" class="px-4 py-4 text-center text-gray-500">Belum ada donasi.</td>
-        </tr>
-    <?php endif; ?>
-</tbody>
-
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Donatur</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Laporan</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nominal</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php $no = 1; while($row = $result->fetch_assoc()): ?>
+                        <tr class="text-center border-b">
+                            <td class="px-4 py-2"><?= $no++ ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($row['nama']) ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($row['judul']) ?></td>
+                            <td class="px-4 py-2"><?= number_format($row['jumlah'], 0, ',', '.') ?></td>
+                            <td class="px-4 py-2"><?= htmlspecialchars($row['pesan']) ?></td>
+                            <td class="px-4 py-2"><?= $row['tanggal'] ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="6" class="px-4 py-4 text-center text-gray-500">Belum ada donasi.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
         </table>
+
         <div class="flex justify-center mt-6 text-center mb-6">
-            <a href="lapor.php" class="inline-block bg-orange-600 relative z-1000 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Donasi Lagi</a>
+            <a href="lapor.php" class="inline-block bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Donasi Lagi</a>
         </div>
-        <button onclick="generatePDF()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 relative z-10">
-        Export PDF
+
+        <button onclick="generatePDF()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
+            Export PDF
         </button>
     </div>
+</main>
+
+<?php include "layout/footer.html"; ?>
 
 <!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -102,17 +105,14 @@ if (isset($_GET['export'])) {
                 fontSize: 10
             },
             headStyles: {
-                fillColor: [22, 160, 133] // warna header
+                fillColor: [22, 160, 133]
             }
         });
 
         doc.save("riwayat_donasi.pdf");
     }
 </script>
-
-
 </body>
-<?php include "layout/footer.html"; ?>
 </html>
 
 <?php $conn->close(); ?>

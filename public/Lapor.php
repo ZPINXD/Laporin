@@ -67,7 +67,6 @@ $result = $conn->query($sql);
                 $showCheck = ($status == 'selesai');
                 $isBencanaAlam = ($row['kategori'] == 'Bencana Alam');
                 $isActiveDonasi = ($status == 'diproses' || $status == 'selesai') && $isBencanaAlam;
-                $disabledClass = $isActiveDonasi ? '' : 'opacity-50 cursor-not-allowed';
             ?>
                 <div class="rounded-lg shadow-md p-6 mb-6 border hover:shadow-lg transition-shadow duration-300 bg-white border-gray-200">
                     <!-- Header: Status dengan warna dan ukuran diperbesar -->
@@ -111,12 +110,17 @@ $result = $conn->query($sql);
                         <?php endif; ?>
                     </div>
                         
-                    <!-- Tombol Donasi -->
-                    <?php if ($isBencanaAlam): ?>
+                    <?php if ($isBencanaAlam && $isActiveDonasi): ?>
                         <div class="mt-4">
-                            <a href="form_donasi.php?id_laporan=<?php echo $row['id_laporan']; ?>" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200 <?php echo $disabledClass; ?>" <?php echo !$isActiveDonasi ? 'disabled' : ''; ?>>
-                                🎗️ Donasi Sekarang
-                            </a>
+                            <?php if (isset($_SESSION['id_user'])): ?>
+                                <a href="form_donasi.php?id_laporan=<?php echo $row['id_laporan']; ?>" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+                                    🎗️ Donasi Sekarang
+                                </a>
+                            <?php else: ?>
+                                <a href="login.php" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+                                    🔒 Login untuk Donasi
+                                </a>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
                 </div>

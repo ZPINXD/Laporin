@@ -17,12 +17,17 @@ $hasil = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Laporan</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function confirmSubmit() {
+            return confirm("Apakah Anda yakin ingin menyimpan perubahan?");
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
 
 <?php include "layout/navbaradmin.php"; ?>
 
-<form action="prosesubahstatuslaporan.php" method="POST">
+<form action="prosesubahstatuslaporan.php" method="POST" onsubmit="return confirmSubmit()">
 <div id="content" class="flex-1 p-6 transition-all md:ml-64 flex flex-col justify-center items-center">
      <h2 class="text-3xl font-bold text-orange-700 mb-6">Daftar Laporan</h2>
 <div class="overflow-x-auto w-full bg-white shadow-lg">

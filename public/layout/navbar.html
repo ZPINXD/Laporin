@@ -1,15 +1,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
 <body>
     <nav id="navbar" class="fixed top-0 left-0 w-full bg-gray-900 shadow-md p-4 flex justify-between items-center z-50 transition-all duration-300">
-        <div class="flex items-center space-x-3">
-            <!-- Logo gambar dalam lingkaran putih -->
-            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow">
-                <img src="Assets/Logo.png" alt="Logo Lapor.in" class="w-10 h-10 rounded-full object-cover" />
-            </div>
-            <!-- Teks nama aplikasi -->
-            <h2 class="text-white text-xl font-bold">Lapor.in</h2>
+        <div class="flex items-center space-x-2">
+            <img src="Assets/logo_lapor.png" alt="Logo Lapor.in" class="h-8 w-8 object-contain">
+            <h2 class="text-white text-lg font-bold">Lapor.in</h2>
         </div>
+        
 
         <!-- Navigasi Desktop -->
         <ul class="hidden md:flex space-x-6">
@@ -25,9 +21,11 @@
                 <div id="profile-dropdown" class="hidden absolute top-12 right-4 w-48 border-2 border-gray-600 bg-white shadow-md rounded-md z-50">
                     <a href="ubahprofil.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Ubah Profil</a>
                     <a href="lihatlaporan.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Lihat Laporan Saya</a>
-                    <a href="halaman_donasi.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Riwayat Donasi</a>
+                <a href="halaman_donasi.php" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Riwayat Donasi</a>
+
                     <a href="proseslogout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Keluar</a>
                 </div>
+                
             </div>
             <?php else: ?>
             <a href="login.php" class="text-white font-semibold hover:text-orange-400">MASUK</a>
@@ -48,7 +46,7 @@
                 <a href="proseslogout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-200">Keluar</a>
             </div>
             <?php endif; ?>
-
+            
             <button id="menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
                 ☰
             </button>
@@ -73,47 +71,53 @@
         document.addEventListener("DOMContentLoaded", function () {
             let hamburgerMenu = document.getElementById("menu-toggle");
             let menuDropdown = document.getElementById("dropdown-menu");
-
+    
             let profileToggle = document.getElementById("profile-toggle");
             let profileDropdown = document.getElementById("profile-dropdown");
-
+    
             let profileToggleMobile = document.getElementById("profile-toggle-mobile");
             let profileDropdownMobile = document.getElementById("profile-dropdown-mobile");
-
+    
+            // Fungsi untuk menutup semua dropdown kecuali yang sedang diklik
             function closeAllDropdowns(except = null) {
                 if (except !== menuDropdown) menuDropdown.classList.add("hidden");
                 if (except !== profileDropdown && profileDropdown) profileDropdown.classList.add("hidden");
                 if (except !== profileDropdownMobile && profileDropdownMobile) profileDropdownMobile.classList.add("hidden");
             }
-
+    
+            // Toggle dropdown menu utama (hamburger menu)
             hamburgerMenu.addEventListener("click", function (event) {
                 event.stopPropagation();
                 let isOpen = !menuDropdown.classList.contains("hidden");
-                closeAllDropdowns();
-                if (!isOpen) menuDropdown.classList.remove("hidden");
+                closeAllDropdowns(); // Tutup dropdown lain
+                if (!isOpen) menuDropdown.classList.remove("hidden"); // Jika belum terbuka, buka dropdown
             });
-
+    
+            // Toggle dropdown profil desktop
             if (profileToggle) {
                 profileToggle.addEventListener("click", function (event) {
                     event.stopPropagation();
                     let isOpen = !profileDropdown.classList.contains("hidden");
-                    closeAllDropdowns();
+                    closeAllDropdowns(); // Tutup dropdown lain
                     if (!isOpen) profileDropdown.classList.remove("hidden");
                 });
             }
-
+    
+            // Toggle dropdown profil mobile
             if (profileToggleMobile) {
                 profileToggleMobile.addEventListener("click", function (event) {
                     event.stopPropagation();
                     let isOpen = !profileDropdownMobile.classList.contains("hidden");
-                    closeAllDropdowns();
+                    closeAllDropdowns(); // Tutup dropdown lain
                     if (!isOpen) profileDropdownMobile.classList.remove("hidden");
                 });
             }
-
+    
+            // Tutup dropdown jika klik di luar
             document.addEventListener("click", function () {
                 closeAllDropdowns();
             });
         });
     </script>
+    
 </body>

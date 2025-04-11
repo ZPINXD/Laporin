@@ -10,6 +10,11 @@ $hasil = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Admin</title>
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        function confirmSubmit() {
+            return confirm("Apakah Anda yakin ingin menyimpan perubahan?");
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
 
@@ -25,7 +30,7 @@ $hasil = mysqli_query($conn, $query);
             </a>
         </div>
 
-        <form action="prosesubahstatus.php" method="POST">
+        <form action="prosesubahstatus.php" method="POST" onsubmit="return confirmSubmit()">
     <div class="overflow-x-auto bg-white shadow-lg">
         <table class="w-full text-sm text-left border border-orange-700">
             <thead class="bg-orange-700 text-white text-base">
