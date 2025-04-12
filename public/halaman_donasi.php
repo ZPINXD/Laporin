@@ -13,20 +13,6 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
-
-// Fungsi export ke CSV
-if (isset($_GET['export'])) {
-    header('Content-Type: text/csv; charset=utf-8');
-    header('Content-Disposition: attachment; filename=riwayat_donasi.csv');
-    $output = fopen('php://output', 'w');
-    fputcsv($output, array('No', 'Nama', 'Judul Laporan', 'Jumlah Donasi', 'Pesan', 'Tanggal Donasi'));
-    $no = 1;
-    while ($data = mysqli_fetch_assoc($result)) {
-        fputcsv($output, array($no++, $data['nama'], $data['judul'], $data['jumlah'], $data['pesan'], $data['tanggal']));
-    }    
-    fclose($output);
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -44,28 +30,32 @@ if (isset($_GET['export'])) {
 <main class="flex-grow">
     <h1 class="text-3xl font-bold text-center text-gray-800 mt-10 mb-8">Riwayat Donasi</h1>
 
-    <div class="w-full max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-md">
-        <table id="donasiTable" class="min-w-full divide-y divide-gray-200">
+    <div class="w-full max-w-5xl mx-auto bg-white p-6 rounded-2xl shadow-md">
+        <table id="donasiTable" class="table-fixed w-full text-sm divide-y divide-gray-200">
             <thead class="bg-gray-100">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Donatur</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Laporan</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nominal</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                <tr class="text-center">
+                    <th class="w-[5%] px-4 py-3">No</th>
+                    <th class="w-[20%] px-4 py-3">Nama Donatur</th>
+                    <th class="w-[25%] px-4 py-3">Judul Laporan</th>
+                    <th class="w-[15%] px-4 py-3">Nominal</th>
+                    <th class="w-[25%] px-4 py-3">Pesan</th>
+                    <th class="w-[10%] px-4 py-3">Tanggal</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                 <?php if ($result->num_rows > 0): ?>
                     <?php $no = 1; while($row = $result->fetch_assoc()): ?>
-                        <tr class="text-center border-b">
+                        <tr class="border-b hover:bg-gray-100">
                             <td class="px-4 py-2"><?= $no++ ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($row['nama']) ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($row['judul']) ?></td>
-                            <td class="px-4 py-2"><?= number_format($row['jumlah'], 0, ',', '.') ?></td>
-                            <td class="px-4 py-2"><?= htmlspecialchars($row['pesan']) ?></td>
-                            <td class="px-4 py-2"><?= $row['tanggal'] ?></td>
+                            <td class="px-4 py-2 font-semibold text-gray-700"><?= htmlspecialchars($row['nama']) ?></td>
+                            <td class="px-4 py-2 text-gray-600"><?= htmlspecialchars($row['judul']) ?></td>
+                            <td class="px-4 py-2">
+                                <span class="inline-block bg-green-100 text-green-800 text-sm px-2 py-1 rounded">
+                                    Rp <?= number_format($row['jumlah'], 0, ',', '.') ?>
+                                </span>
+                            </td>
+                            <td class="px-4 py-2 italic text-gray-500"><?= htmlspecialchars($row['pesan']) ?></td>
+                            <td class="px-4 py-2 text-gray-600"><?= date("d M Y", strtotime($row['tanggal'])) ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -80,17 +70,18 @@ if (isset($_GET['export'])) {
             <a href="lapor.php" class="inline-block bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Donasi Lagi</a>
         </div>
 
-        <button onclick="generatePDF()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4">
-            Export PDF
-        </button>
+        <!-- Export PDF Button di pojok kiri bawah -->
+        <div class="flex justify-start mt-4">
+            <button onclick="generatePDF()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
+                Export PDF
+            </button>
+        </div>
     </div>
 </main>
 
 <?php include "layout/footer.html"; ?>
 
-<!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- AutoTable plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 <script>
     function generatePDF() {
