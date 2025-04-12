@@ -23,39 +23,41 @@ $result = $stmt->get_result();
     <title>Riwayat Donasi - LaporIn</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen mt-10">
 <?php include "layout/navbar.html"; ?>
 
-<main class="flex-grow">
-    <h1 class="text-3xl font-bold text-center text-gray-800 mt-10 mb-8">Riwayat Donasi</h1>
+<main class="flex-grow px-4">
+    <h1 class="text-2xl sm:text-3xl font-bold text-center text-gray-800 mt-10 mb-6">Riwayat Donasi</h1>
 
-    <div class="w-full max-w-5xl mx-auto bg-white p-6 rounded-2xl shadow-md">
-        <table id="donasiTable" class="table-fixed w-full text-sm divide-y divide-gray-200">
-            <thead class="bg-gray-100">
+    <div class="w-full max-w-6xl mx-auto bg-white p-4 sm:p-6 rounded-2xl shadow-md overflow-x-auto">
+        <table id="donasiTable" class="min-w-full text-sm divide-y divide-gray-200">
+            <thead class="bg-gray-100 text-gray-700">
                 <tr class="text-center">
-                    <th class="w-[5%] px-4 py-3">No</th>
-                    <th class="w-[20%] px-4 py-3">Nama Donatur</th>
-                    <th class="w-[25%] px-4 py-3">Judul Laporan</th>
-                    <th class="w-[15%] px-4 py-3">Nominal</th>
-                    <th class="w-[25%] px-4 py-3">Pesan</th>
-                    <th class="w-[10%] px-4 py-3">Tanggal</th>
+                    <th class="px-2 sm:px-4 py-2 sm:py-3">No</th>
+                    <th class="px-2 sm:px-4 py-2 sm:py-3">Nama Donatur</th>
+                    <th class="px-2 sm:px-4 py-2 sm:py-3">Judul Laporan</th>
+                    <th class="px-2 sm:px-4 py-2 sm:py-3">Nominal</th>
+                    <th class="px-2 sm:px-4 py-2 sm:py-3">Pesan</th>
+                    <th class="px-2 sm:px-4 py-2 sm:py-3">Tanggal</th>
                 </tr>
             </thead>
-            <tbody class="text-center">
+            <tbody class="text-center text-gray-600">
                 <?php if ($result->num_rows > 0): ?>
                     <?php $no = 1; while($row = $result->fetch_assoc()): ?>
-                        <tr class="border-b hover:bg-gray-100">
-                            <td class="px-4 py-2"><?= $no++ ?></td>
-                            <td class="px-4 py-2 font-semibold text-gray-700"><?= htmlspecialchars($row['nama']) ?></td>
-                            <td class="px-4 py-2 text-gray-600"><?= htmlspecialchars($row['judul']) ?></td>
-                            <td class="px-4 py-2">
-                                <span class="inline-block bg-green-100 text-green-800 text-sm px-2 py-1 rounded">
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="px-2 sm:px-4 py-2"><?= $no++ ?></td>
+                            <td class="px-2 sm:px-4 py-2 font-semibold"><?= htmlspecialchars($row['nama']) ?></td>
+                            <td class="px-2 sm:px-4 py-2"><?= htmlspecialchars($row['judul']) ?></td>
+                            <td class="px-2 sm:px-4 py-2">
+                                <span class="inline-block bg-green-100 text-green-800 text-xs sm:text-sm px-2 py-1 rounded">
                                     Rp <?= number_format($row['jumlah'], 0, ',', '.') ?>
                                 </span>
                             </td>
-                            <td class="px-4 py-2 italic text-gray-500"><?= htmlspecialchars($row['pesan']) ?></td>
-                            <td class="px-4 py-2 text-gray-600"><?= date("d M Y", strtotime($row['tanggal'])) ?></td>
+                            <td class="px-2 sm:px-4 py-2 italic"><?= htmlspecialchars($row['pesan']) ?></td>
+                            <td class="px-2 sm:px-4 py-2"><?= date("d M Y", strtotime($row['tanggal'])) ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -66,12 +68,10 @@ $result = $stmt->get_result();
             </tbody>
         </table>
 
-        <div class="flex justify-center mt-6 text-center mb-6">
-            <a href="lapor.php" class="inline-block bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition">Donasi Lagi</a>
-        </div>
-
-        <!-- Export PDF Button di pojok kiri bawah -->
-        <div class="flex justify-start mt-4">
+        <div class="flex flex-col sm:flex-row justify-between items-center mt-6 gap-4">
+            <a href="lapor.php" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition text-center">
+                Donasi Lagi
+            </a>
             <button onclick="generatePDF()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
                 Export PDF
             </button>
@@ -81,8 +81,6 @@ $result = $stmt->get_result();
 
 <?php include "layout/footer.html"; ?>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 <script>
     function generatePDF() {
         const { jsPDF } = window.jspdf;
